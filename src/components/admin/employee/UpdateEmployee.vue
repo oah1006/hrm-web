@@ -65,15 +65,15 @@
                             </svg>
                             List Users
                         </router-link>
-                        <!-- <a href="{{ route('admin.users.show', $user) }}" class="inline-flex items-center gap-3 px-3 py-2 rounded-lg text-black font-medium text-lg ml-auto">
-                            <span class="material-icons-outlined">
-                                reply
-                            </span>
+                        <!-- <router-link :to="{name: 'detailEmployee', params: {id: employee.id}}"  class="inline-flex items-center gap-3 px-3 py-2 rounded-lg text-black font-medium text-lg ml-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                            </svg>
                             Back
-                        </a> -->
+                        </router-link> -->
                     </div>
                     <div class="ml-auto">
-                        <button type="submit" class="flex items-center gap-2 py-2 px-4 hover:bg-blue-400 bg-blue-500 rounded-lg text-white font-medium text-lg">
+                        <button class="flex items-center gap-2 py-2 px-4 hover:bg-blue-400 bg-blue-500 rounded-lg text-white font-medium text-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
@@ -100,7 +100,6 @@ export default {
     data() {
         return {
             email: '',
-            password: '',
             first_name: '',
             last_name: '',
             phone_number: '',
@@ -109,8 +108,9 @@ export default {
             role: 'admin',
             status: 'active',
             department_id: '1',
-            user: this.$cookies.get('user'),
             departments: [],
+            employee: [],
+            user: this.$cookies.get('user'),
         }
     },
     methods: {
@@ -118,9 +118,7 @@ export default {
             const token = this.$cookies.get('token')
 
             const data = {
-                id: this.$route.params.id,
                 email: this.email,
-                password: this.password,
                 first_name: this.first_name,
                 last_name: this.last_name,
                 phone_number: this.phone_number,
@@ -132,7 +130,7 @@ export default {
             }
 
             axios
-            .put('http://127.0.0.1:8000/api/admin/employees/' + data.id, data, {
+            .put('http://127.0.0.1:8000/api/admin/employees/' + this.$route.params.id, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -164,7 +162,7 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response.data)
+                this.employee = response.data
                 this.email = response.data.email
                 this.first_name = response.data.first_name
                 this.last_name = response.data.last_name
