@@ -1,8 +1,8 @@
 <template>
   <Navbar :user="user" />
-  <div class="flex">
+  <div class="flex h-screen min-h-full">
     <NavigationBar />
-    <div class="bg-sky-50 grow h-screen px-10 py-6">
+    <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
       <p class="font-base text-zinc-500">HRM-HT/ Department</p>
       <div
         class="
@@ -17,7 +17,8 @@
         "
       >
         <p class="text-2xl font-medium">Department</p>
-        <router-link :to="{name: 'storeDepartment'}"
+        <router-link
+          :to="{ name: 'storeDepartment' }"
           class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
           >Create new</router-link
         >
@@ -38,22 +39,19 @@
               {{ department.department_name }}
             </td>
             <td class="px-4 py-3 break-all">
-              <p v-if="department.description.length < 79">{{ department.description }}</p>
+              <p v-if="department.description.length < 79">
+                {{ department.description }}
+              </p>
               <p v-else>
                 {{ department.description.substring(0, 80) + "..." }}
               </p>
             </td>
-            <td
-              class="
-                lg:pl-4
-                py-3
-                flex
-                gap-3
-                items-center
-              "
-            >
-              <p
-              
+            <td class="lg:pl-4 py-3 flex gap-3 items-center">
+              <router-link
+                :to="{
+                  name: 'detailDepartment',
+                  params: { id: department.id },
+                }"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,9 +67,13 @@
                     d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
                   />
                 </svg>
-              </p>
-              <p
-                
+              </router-link>
+
+              <router-link
+                :to="{
+                  name: 'updateDepartment',
+                  params: { id: department.id },
+                }"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -87,8 +89,8 @@
                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                   />
                 </svg>
-              </p>
-              <button>
+              </router-link>
+              <button @click="removeDepartment(department.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -143,6 +145,19 @@ export default {
           this.departments = response.data.data;
         });
     },
+    removeDepartment(id) {
+      const token = this.$cookies.get('token');
+
+      axios
+        .delete("http://127.0.0.1:8000/api/admin/departments/" + id, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          location.reload();
+        })
+    }
   },
   created() {
     this.getDepartments();
