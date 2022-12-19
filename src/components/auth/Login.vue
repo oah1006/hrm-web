@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-screen min-h-full bg-blue-100">
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center h-screen">
             <form @submit.prevent="handleSubmit" class="w-2/5 px-20 py-8 bg-white rounded-lg">
                 <p class="text-center font-medium text-3xl">Login</p>
                 <p class="text-center text-base font-thin mt-1">Welcome to HRM Hiệp thành!</p>

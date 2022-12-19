@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center border-b shadow-md">
     <div class="flex w-1/6 border-r py-3 px-10">
-        <p class="font-medium text-xl">HRM-HT</p>
+        <router-link :to="{name: 'dashboard'}" class="font-medium text-xl">HRM-HT</router-link>
     </div>
     <div class="flex gap-8 items-center ml-auto mr-10">
-          <p class="text-red-500 font-medium">{{ user.first_name }}</p>
+          <router-link :to="{name: 'detailEmployee', params: {id: user.id}}" class="text-red-500 font-medium">{{ user.first_name }}</router-link>
           <a href="#" @click="logout">Logout</a>
     </div>
   </div>
