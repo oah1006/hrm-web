@@ -5,9 +5,11 @@ import ForgotPassword from '../components/auth/ForgotPassword.vue'
 import ResetPassword from '../components/auth/ResetPassword.vue'
 import VerifyOTP from '../components/auth/VerifyOTP.vue'
 import IndexEmployee from '../components/admin/employee/IndexEmployee.vue'
-import CreateEmployee from '../components/admin/employee/CreateEmployee.vue'
+import StoreEmployee from '../components/admin/employee/StoreEmployee.vue'
 import UpdateEmployee from '../components/admin/employee/UpdateEmployee.vue'
 import DetailEmployee from '../components/admin/employee/DetailEmployee.vue'
+import IndexDepartment from '../components/admin/department/IndexDepartment.vue'
+import StoreDepartment from '../components/admin/department/StoreDepartment.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,9 +27,9 @@ const router = createRouter({
       component: IndexEmployee
     },
     {
-      path: '/admin/employee/create-employee',
-      name: 'createEmployee',
-      component: CreateEmployee
+      path: '/admin/employee/store-employee',
+      name: 'storeEmployee',
+      component: StoreEmployee
     },
     {
       path: '/admin/employee/update-employee/:id',
@@ -38,6 +40,19 @@ const router = createRouter({
       path: '/admin/employee/detail-employee/:id',
       name: 'detailEmployee',
       component: DetailEmployee
+    },
+    // end employee
+
+    // department
+    {
+      path: '/admin/department',
+      name: 'department',
+      component: IndexDepartment
+    },
+    {
+      path: '/admin/department/store-department',
+      name: 'storeDepartment',
+      component: StoreDepartment
     },
     {
       path: '/login',
