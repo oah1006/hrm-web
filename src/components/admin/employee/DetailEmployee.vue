@@ -6,11 +6,11 @@
             <div class="flex items-center">
                 <p class="text-4xl text-zinc-500 font-light">Detail Employee</p>
                 <div class="flex gap-3 ml-auto">
-                    <a class="text-xl bg-blue-500 text-white py-3 px-3 rounded-lg">
+                    <router-link :to="{name: 'updateEmployee', params: {id: employee.id}}" class="text-xl bg-blue-500 text-white py-3 px-3 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
-                    </a>
+                    </router-link>
                     <!-- <form action="{{ route('admin.users.destroy', $user) }}" method="post"  class="flex items-center text-xl bg-white py-3 px-3 rounded-lg text-red-500">
                         <button onclick="return confirm('Are you sure you want to delete this user?')" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
