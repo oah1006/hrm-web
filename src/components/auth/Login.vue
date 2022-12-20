@@ -44,6 +44,7 @@
                     .then((response) => {
                         this.$cookies.set('user', response.data.employee)
                         this.$cookies.set('token', response.data.token, 60 * 60 * 24)
+                        
                         this.$router.push('/admin/dashboard')
                     })
                     .catch((error) => {
