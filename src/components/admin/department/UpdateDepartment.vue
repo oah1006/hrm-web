@@ -11,7 +11,7 @@
                         <input type="text" name="department_name" v-model="department_name" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Mô tả</p>
+                        <p class="w-1/12 flex-none">Mô tả</p>
                         <input type="text" name="description" v-model="description" placeholder="Mô tả..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>              
                 </div>
