@@ -155,7 +155,7 @@ export default {
           }
         })
         .then(response => {
-          location.reload();
+          this.getDepartments();
         })
     }
   },
