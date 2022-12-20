@@ -201,6 +201,7 @@ export default {
           },
         })
         .then((response) => {
+          console.log(response.data.data)
           this.employees = response.data.data;
         });
     },
@@ -214,7 +215,7 @@ export default {
           },
         })
         .then((response) => {
-          location.reload();
+          this.getEmployees()
         });
     },
   },

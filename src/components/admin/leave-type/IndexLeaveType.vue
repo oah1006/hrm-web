@@ -121,7 +121,7 @@ export default {
         }
     },
     methods: {
-        getLeaveType() {
+        getLeaveTypes() {
             const token = this.$cookies.get('token')
 
             axios
@@ -144,12 +144,12 @@ export default {
                 }
             })
             .then((response) => {
-                location.reload();
+                this.getLeaveTypes();
             })
         }
     },
     created() {
-        this.getLeaveType();
+        this.getLeaveTypes();
     }
 }
 </script>
