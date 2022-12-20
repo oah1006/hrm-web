@@ -3,7 +3,7 @@
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 lg:py-6">
-            <p class="text-4xl text-zinc-500 font-light">Create Employee</p>
+            <p class="text-4xl text-zinc-500 font-light">Tạo nhân viên</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
@@ -11,27 +11,27 @@
                         <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Password</p>
+                        <p class="w-1/12">Mật khẩu</p>
                         <input type="password" name="password" v-model="password" placeholder="Password" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div> 
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">First name:</p>
+                        <p class="w-1/12">Tên:</p>
                         <input type="text" name="first_name" v-model="first_name" placeholder="First Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Last name:</p>
+                        <p class="w-1/12">Tên lót:</p>
                         <input type="text" name="last_name" v-model="last_name" placeholder="Last Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Phone number:</p>
+                        <p class="w-1/12">Số điện thoại:</p>
                         <input type="text" name="phone_number" v-model="phone_number" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Birthday:</p>
+                        <p class="w-1/12">Ngày sinh:</p>
                         <input type="date" name="birth_date" v-model="birth_date" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Gender</p>
+                        <p class="w-1/12">Giới tính</p>
                         <select name="gender" v-model="gender" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option value="1">Khác</option>
                             <option value="2">Nam</option>
@@ -39,7 +39,7 @@
                         </select>
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Department</p>
+                        <p class="w-1/12">Phòng ban</p>
                         <select name="department_id" v-model="department_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option v-for="department in departments" :key="department.id" :value="department.id">
                                 {{ department.department_name }}
@@ -47,14 +47,14 @@
                         </select>
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Role</p>
+                        <p class="w-1/12">Vai trò</p>
                         <select name="role" v-model="role" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option value="admin">Admin</option>
                             <option value="employee">Employee</option>
                         </select>
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Status</p>
+                        <p class="w-1/12">Trạng thái</p>
                         <select name="status" v-model="status" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option value="active">Active</option>
                             <option value="disabled">disabled</option>
@@ -67,7 +67,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
-                            List Users
+                            Danh sách nhân viên
                         </router-link>
                     </div>
                     <div class="ml-auto">
@@ -75,7 +75,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
-                            Submit
+                            Xác nhận
                         </button>
                     </div>
                 </div>

@@ -2,11 +2,11 @@
     <Navbar :user="user" />
     <div class="flex">
         <NavigationBar />
-        <div class="grow lg:px-10 lg:py-6">
+        <div class="grow lg:px-10 lg:py-6" v-if="employee.id">
             <div class="flex items-center">
-                <p class="text-4xl text-zinc-500 font-light">Detail Employee</p>
+                <p class="text-4xl text-zinc-500 font-light">Thông tin nhân viên</p>
                 <div class="flex gap-3 ml-auto">
-                    <router-link :to="{name: 'updateEmployee', params: {id: employee.id}}" class="text-xl bg-blue-500 text-white py-3 px-3 rounded-lg">
+                    <router-link v-if="employee.id" :to="{name: 'updateEmployee', params: {id: employee.id}}" class="text-xl bg-blue-500 text-white py-3 px-3 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
@@ -27,36 +27,36 @@
                     <p class="grow text-cyan-500 font-medium">{{ employee.email }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Frist name</p>
+                    <p class="w-1/3">Tên</p>
                     <p class="grow text-cyan-500 font-medium">{{ employee.first_name }}</p>
                 </div>
 
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Last name</p>
+                    <p class="w-1/3">Tên lót</p>
                     <p class="grow">{{ employee.last_name }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Gender</p>
+                    <p class="w-1/3">Giới tính</p>
                     <p class="grow">{{ employee.gender }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Phone number</p>
+                    <p class="w-1/3">Số điện thoại</p>
                     <p class="grow">{{ employee.phone_number }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Department</p>
+                    <p class="w-1/3">Phòng ban</p>
                     <p class="grow">{{ employee.department.department_name }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Birthday</p>
+                    <p class="w-1/3">Ngày sinh</p>
                     <p class="grow">{{ employee.birth_date }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Role</p>
+                    <p class="w-1/3">Vai trò</p>
                     <p class="grow">{{ employee.role }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Status</p>
+                    <p class="w-1/3">Trạng thái</p>
                     <p class="grow">{{ employee.status }}</p>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                 </svg>
-                List Users
+                Danh sách nhân viên
             </router-link>
         </div>
     </div>
@@ -84,11 +84,10 @@ export default {
     data() {
         return {
             user: this.$cookies.get('user'),
-            employee: [],
-            departments: []
+            employee: {},
         }
     },
-    beforeMount() {
+    created() {
         const token = this.$cookies.get('token')
 
         axios
@@ -98,7 +97,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response.data)
                 this.employee = response.data
             })
     }

@@ -3,7 +3,7 @@
   <div class="flex h-screen min-h-full">
     <NavigationBar />
     <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
-      <p class="font-base text-zinc-500">HRM-HT/ Department</p>
+      <p class="font-base text-zinc-500">HRM-HT/ Phòng ban</p>
       <div
         class="
           flex
@@ -16,11 +16,11 @@
           rounded-md
         "
       >
-        <p class="text-2xl font-medium">Department</p>
+        <p class="text-2xl font-medium">Phòng ban</p>
         <router-link
           :to="{ name: 'storeDepartment' }"
           class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
-          >Create new</router-link
+          >Tạo mới</router-link
         >
       </div>
 

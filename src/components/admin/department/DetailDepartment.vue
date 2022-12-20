@@ -4,7 +4,7 @@
         <NavigationBar />
         <div class="grow lg:px-10 lg:py-6">
             <div class="flex items-center">
-                <p class="text-4xl text-zinc-500 font-light">Detail Employee</p>
+                <p class="text-4xl text-zinc-500 font-light">Thông tin chi tiết phòng ban</p>
                 <div class="flex gap-3 ml-auto">
                     <router-link v-if="department.id" :to="{name: 'updateDepartment', params: {id: department.id}}" class="text-xl bg-blue-500 text-white py-3 px-3 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -23,7 +23,7 @@
 
             <div class="bg-white rounded-lg shadow-md mt-8">
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Tên phòng ban</p>
+                    <p class="w-1/3 flex-none">Tên phòng ban</p>
                     <p class="grow text-cyan-500 font-medium">{{ department.department_name }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
@@ -35,7 +35,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                 </svg>
-                List Users
+                Danh sách phòng ban
             </router-link>
         </div>
     </div>

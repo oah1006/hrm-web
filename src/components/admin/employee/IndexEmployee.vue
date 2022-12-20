@@ -3,7 +3,7 @@
   <div class="flex">
     <NavigationBar />
     <div class="bg-sky-50 grow h-screen px-10 py-6">
-      <p class="font-base text-zinc-500">HRM-HT/ Employee</p>
+      <p class="font-base text-zinc-500">HRM-HT/ Nhân viên</p>
       <div
         class="
           flex
@@ -16,23 +16,23 @@
           rounded-md
         "
       >
-        <p class="text-2xl font-medium">Employee</p>
+        <p class="text-2xl font-medium">Nhân viên</p>
         <router-link
           :to="{ name: 'storeEmployee' }"
           class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
-          >Create new</router-link
+          >Tạo mới</router-link
         >
       </div>
 
       <table class="w-full text-left bg-white rounded-lg">
         <thead class="uppercase rounded-lg">
           <tr class="text-xs text-zinc-400 font-bold border-b">
-            <td class="lg:px-4 py-3">FIRST NAME</td>
+            <td class="lg:px-4 py-3">TÊN</td>
             <td class="lg:px-4 py-3">EMAIL</td>
-            <td class="lg:px-4 py-3">PHONE NUMBER</td>
-            <td class="lg:px-4 py-3">DEPARTMENT</td>
-            <td class="lg:px-4 py-3">ROLE</td>
-            <td class="lg:px-4 py-3">STATUS</td>
+            <td class="lg:px-4 py-3">SỐ ĐIỆN THOẠI</td>
+            <td class="lg:px-4 py-3">PHÒNG BAN</td>
+            <td class="lg:px-4 py-3">VAI TRÒ</td>
+            <td class="lg:px-4 py-3">TRẠNG THÁI</td>
             <td class=""></td>
           </tr>
         </thead>

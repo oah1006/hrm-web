@@ -18,6 +18,7 @@ import DetailDepartment from '../components/admin/department/DetailDepartment.vu
 import IndexLeaveType from '../components/admin/leave-type/IndexLeaveType.vue'
 import StoreLeaveType from '../components/admin/leave-type/StoreLeaveType.vue'
 import UpdateLeaveType from '../components/admin/leave-type/UpdateLeaveType.vue'
+import DetailLeaveType from '../components/admin/leave-type/DetailLeaveType.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -126,6 +127,15 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: '/admin/leave-type/detail-leave-type/:id',
+      name: 'detailLeaveType',
+      component: DetailLeaveType,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    // end leave type
 
     {
       path: '/login',
@@ -156,7 +166,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = $cookies.get('token')
   if (to.meta.requiresAuth) {
-    console.log(token)
     if (token) {
       next();
     } else {

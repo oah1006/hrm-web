@@ -3,7 +3,7 @@
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 lg:py-6 h-screen">
-            <p class="text-4xl text-zinc-500 font-light">Create Department</p>
+            <p class="text-4xl text-zinc-500 font-light">Tạo phòng ban</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
@@ -21,7 +21,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
-                            List Users
+                            Danh sách phòng ban
                         </router-link>
                     </div>
                     <div class="ml-auto">
@@ -29,7 +29,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
-                            Submit
+                            Xác nhận
                         </button>
                     </div>
                 </div>

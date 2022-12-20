@@ -3,7 +3,7 @@
   <div class="flex">
     <NavigationBar />
     <div class="bg-sky-50 grow lg:px-10 lg:py-6">
-      <p class="text-4xl text-zinc-500 font-light">Update Employee</p>
+      <p class="text-4xl text-zinc-500 font-light">Cập nhật nhân viên</p>
       <form @submit.prevent="handleSubmit">
         <div class="bg-white w-full mt-5 rounded-lg shadow-md">
           <div
@@ -49,7 +49,7 @@
               py-6
             "
           >
-            <p class="w-1/12">First name:</p>
+            <p class="w-1/12">Tên:</p>
             <input
               type="text"
               name="first_name"
@@ -80,7 +80,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Last name:</p>
+            <p class="w-1/12">Tên lót:</p>
             <input
               type="text"
               name="last_name"
@@ -111,7 +111,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Phone number:</p>
+            <p class="w-1/12">Số điện thoại:</p>
             <input
               type="text"
               name="phone_number"
@@ -142,7 +142,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Birthday:</p>
+            <p class="w-1/12">Ngày sinh:</p>
             <input
               type="date"
               name="birth_date"
@@ -173,7 +173,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Gender</p>
+            <p class="w-1/12">Giới tính</p>
             <select
               name="gender"
               v-model="gender"
@@ -205,7 +205,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Department</p>
+            <p class="w-1/12">Phòng ban</p>
             <select
               name="department_id"
               v-model="department_id"
@@ -241,7 +241,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Role</p>
+            <p class="w-1/12">Vai trò</p>
             <select
               name="role"
               v-model="role"
@@ -258,7 +258,7 @@
               "
             >
               <option value="admin">Admin</option>
-              <option value="employee">Employee</option>
+              <option value="employee">Nhân viên</option>
             </select>
           </div>
           <div
@@ -273,7 +273,7 @@
               py-6
             "
           >
-            <p class="w-1/12">Status</p>
+            <p class="w-1/12">Trạng thái</p>
             <select
               name="status"
               v-model="status"
@@ -327,7 +327,7 @@
                   d="M4 6h16M4 10h16M4 14h16M4 18h16"
                 />
               </svg>
-              List Users
+              Danh sách nhân viên
             </router-link>
             <router-link
                 v-if="employee.id"
@@ -362,7 +362,7 @@
                   d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
                 />
               </svg>
-              Back
+              Quay về
             </router-link>
           </div>
           <div class="ml-auto">
@@ -395,7 +395,7 @@
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-              Submit
+              Xác nhận
             </button>
           </div>
         </div>
