@@ -20,6 +20,12 @@ import StoreLeaveType from '../components/admin/leave-type/StoreLeaveType.vue'
 import UpdateLeaveType from '../components/admin/leave-type/UpdateLeaveType.vue'
 import DetailLeaveType from '../components/admin/leave-type/DetailLeaveType.vue'
 
+import IndexLeave from '../components/admin/leave/IndexLeave.vue'
+import StoreLeave from '../components/admin/leave/StoreLeave.vue'
+import UpdateLeave from '../components/admin/leave/UpdateLeave.vue'
+import DetailLeave from '../components/admin/leave/DetailLeave.vue'
+import TableLoading from '../components/TableLoading.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -136,9 +142,42 @@ const router = createRouter({
       }
     },
     // end leave type
+    
+    {
+      path: '/admin/leave',
+      name: 'leave',
+      component: IndexLeave,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin/leave/store-leave',
+      name: 'storeLeave',
+      component: StoreLeave,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin/leave/update-leave/:id',
+      name: 'updateLeave',
+      component: UpdateLeave,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin/leave/detail-leave/:id',
+      name: 'detailLeave',
+      component: DetailLeave,
+      meta: {
+        requiresAuth: true
+      }
+    },
 
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login,
       meta: {
@@ -159,6 +198,11 @@ const router = createRouter({
       path: '/verify-otp',
       name: 'verify-otp',
       component: VerifyOTP
+    },
+    {
+      path: '/tableloading',
+      name: 'tableLoading',
+      component: TableLoading
     }
   ]
 })
