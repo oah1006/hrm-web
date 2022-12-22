@@ -31,7 +31,7 @@ export default {
         })
         .then((response) => {
           this.$cookies.remove('token');
-          this.$router.push('/login')
+          this.$router.push('/')
         })
     }
   }
