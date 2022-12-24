@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.13",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "axios": "^1.2.1",
     "js-cookie": "^3.0.1",
     "vue": "^3.2.45",
