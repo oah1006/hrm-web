@@ -162,7 +162,7 @@ export default {
           this.getDepartments();
         })
     },
-    searchData(keyword) {
+    searchDepartments() {
       clearTimeout(this.debounce)
 
       const token = this.$cookies.get('token')
@@ -170,10 +170,13 @@ export default {
       this.debounce = setTimeout(() => {
         console.log('hi')
         axios
-          .get('http://127.0.0.1:8000/api/admin/departments?keywords=' + keyword, {
+          .get('http://127.0.0.1:8000/api/admin/departments?', {
             headers: {
               Authorization: `Bearer ${token}`
             },
+            params: {
+              keywords: this.search
+            }
           })
           .then((response) => {
             this.departments = response.data.data
@@ -187,7 +190,7 @@ export default {
   },
   watch: {
     search() {
-      this.searchData(this.search);
+      this.searchDepartments();
     }
   }
 };
