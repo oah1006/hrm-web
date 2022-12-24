@@ -125,6 +125,8 @@ export default {
     data() {
         return {
             leaveTypes: {},
+            search: '',
+            debounce: null,
             user: this.$cookies.get('user')
         }
     },
@@ -154,10 +156,32 @@ export default {
             .then((response) => {
                 this.getLeaveTypes();
             })
+        },
+        searchData(keyword) {
+            clearTimeout(this.rebounce)
+
+            const token = this.$cookies.get('token')
+
+            this.rebounce = setTimeout(() => {
+                axios
+                .get('http://127.0.0.1:8000/api/admin/leave-types?keywords=' + keyword, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((response) => {
+                    this.leaveTypes = response.data.data
+                })
+            }, 300)
         }
     },
     created() {
         this.getLeaveTypes();
+    },
+    watch: {
+        search() {
+           this.searchData(this.search)
+        }
     }
 }
 </script>
