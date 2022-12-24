@@ -24,7 +24,9 @@ import IndexLeave from '../components/admin/leave/IndexLeave.vue'
 import StoreLeave from '../components/admin/leave/StoreLeave.vue'
 import UpdateLeave from '../components/admin/leave/UpdateLeave.vue'
 import DetailLeave from '../components/admin/leave/DetailLeave.vue'
-import TableLoading from '../components/TableLoading.vue'
+
+import TableLoading from '../components/admin/loading-table/LoadingTable.vue'
+import Pagination from '../components/pagination/Pagination.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -199,10 +201,23 @@ const router = createRouter({
       name: 'verify-otp',
       component: VerifyOTP
     },
+    
     {
-      path: '/tableloading',
+      path: '/admin/table-loading',
       name: 'tableLoading',
-      component: TableLoading
+      component: TableLoading,
+      meta: {
+        requiresAuth: true
+      }
+    },
+
+    {
+      path: '/pagination',
+      name: 'pagination',
+      component: Pagination,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
