@@ -89,6 +89,7 @@
 import Navbar from '../../navbar/Navbar.vue'
 import NavigationBar from '../../NavigationBar/NavigationBar.vue'
 import axios from 'axios'
+import { ref } from 'vue'
 
 export default {
     components: {
@@ -106,6 +107,7 @@ export default {
             birth_date: '',
             role: 'admin',
             status: 'active',
+            isLoading: ref(false),
             department_id: '1',
             user: this.$cookies.get('user'),
             departments: []
@@ -114,6 +116,9 @@ export default {
     methods: {
         handleSubmit() {
             const token = this.$cookies.get('token')
+
+            this.isLoading = true;
+            console.log(this.isLoading)
 
             const data = {
                 email: this.email,
