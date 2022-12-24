@@ -4,108 +4,104 @@
     <NavigationBar />
     <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
       <p class="font-base text-zinc-500">HRM-HT/ Phòng ban</p>
-      <div
-        class="
-          flex
-          items-center
-          align-center
-          my-4
-          bg-white
-          px-4
-          py-3
-          rounded-md
-        "
-      >
-        <p class="text-2xl font-medium">Phòng ban</p>
-        <router-link
-          :to="{ name: 'storeDepartment' }"
-          class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
-          >Tạo mới</router-link
-        >
+      <div class="my-4 bg-white px-4 py-3 rounded-md">
+        <div class="flex items-center align-center">
+          <p class="text-2xl font-medium">Phòng ban</p>
+          <router-link
+            :to="{ name: 'storeDepartment' }"
+            class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
+            >Tạo mới</router-link>
+        </div>
+        
+        <div class="border-t border-zinc-100 mt-4">
+          <div class="mt-3">
+            <p class="w-1/5">Tìm kiếm theo từ khóa</p>
+            <input type="text" v-model="search" placeholder="Tra cứu ..." class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900" />
+          </div>
+        </div>
       </div>
 
-      <table class="w-full text-left bg-white rounded-lg">
+      <table class="w-full text-left bg-white rounded-lg table table-fixed">
         <thead class="uppercase rounded-lg">
           <tr class="text-xs text-zinc-400 font-bold border-b">
-            <td class="lg:px-4 py-3">Tên phòng ban</td>
-            <td class="lg:px-4 py-3">Mô tả</td>
-            <td class=""></td>
+            <td class="lg:px-4 py-3 w-1/3">Tên phòng ban</td>
+            <td class="lg:px-4 py-3 w-2/3">Mô tả</td>
+            <td class="w-1/3"></td>
           </tr>
         </thead>
 
         <tbody v-for="department in departments" :key="department.id">
           <tr class="text-gray-600 text-sm">
-            <td class="px-4 py-3 text-sky-500 font-medium">
+            <td class="px-4 py-3 text-sky-500 font-medium w-1/3">
               {{ department.department_name }}
             </td>
-            <td class="px-4 py-3 break-all">
-              <p v-if="department.description.length < 79">
-                {{ department.description }}
-              </p>
-              <p v-else>
-                {{ department.description.substring(0, 80) + "..." }}
-              </p>
+            <td class="px-4 py-3 w-2/3">
+                <p class="line-clamp-2">{{ department.description }}</p>
             </td>
-            <td class="lg:pl-4 py-3 flex gap-3 items-center">
-              <router-link
-                :to="{
-                  name: 'detailDepartment',
-                  params: { id: department.id },
-                }"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
+            <td class="lg:pl-4 py-3 w-1/3">
+              <div class="flex mr-4">
+                <div class="flex items-center align-center ml-auto gap-3">
+                  <router-link
+                  :to="{
+                    name: 'detailDepartment',
+                    params: { id: department.id },
+                  }"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-                  />
-                </svg>
-              </router-link>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                    />
+                  </svg>
+                </router-link>
 
-              <router-link
-                :to="{
-                  name: 'updateDepartment',
-                  params: { id: department.id },
-                }"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
+                <router-link
+                  :to="{
+                    name: 'updateDepartment',
+                    params: { id: department.id },
+                  }"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                  />
-                </svg>
-              </router-link>
-              <button @click="removeDepartment(department.id)">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                    />
+                  </svg>
+                </router-link>
+                <button @click="removeDepartment(department.id)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                    />
+                  </svg>
+                </button>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -125,10 +121,18 @@ export default {
     Navbar,
     NavigationBar,
   },
+  props: {
+    timer: {
+      type: Number,
+      default: 100
+    }
+  },
   data() {
     return {
       user: this.$cookies.get("user"),
       departments: [],
+      search: '',
+      debounce: null,
     };
   },
   methods: {
@@ -138,7 +142,7 @@ export default {
       axios
         .get("http://127.0.0.1:8000/api/admin/departments", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
           },
         })
         .then((response) => {
@@ -157,11 +161,35 @@ export default {
         .then(response => {
           this.getDepartments();
         })
+    },
+    searchData(keyword) {
+      clearTimeout(this.debounce)
+
+      const token = this.$cookies.get('token')
+
+      this.debounce = setTimeout(() => {
+        console.log('hi')
+        axios
+          .get('http://127.0.0.1:8000/api/admin/departments?keywords=' + keyword, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          })
+          .then((response) => {
+            this.departments = response.data.data
+            this.debounce = null
+          })
+      }, 300)
     }
   },
   created() {
     this.getDepartments();
   },
+  watch: {
+    search() {
+      this.searchData(this.search);
+    }
+  }
 };
 </script>
 

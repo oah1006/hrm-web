@@ -4,24 +4,49 @@
     <NavigationBar />
     <div class="bg-sky-50 grow h-screen px-10 py-6">
       <p class="font-base text-zinc-500">HRM-HT/ Nhân viên</p>
-      <div
-        class="
-          flex
-          items-center
-          align-center
-          my-4
-          bg-white
-          px-4
-          py-3
-          rounded-md
-        "
-      >
-        <p class="text-2xl font-medium">Nhân viên</p>
-        <router-link
-          :to="{ name: 'storeEmployee' }"
-          class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
-          >Tạo mới</router-link
-        >
+      <div class="my-4 bg-white px-4 py-3 rounded-md">
+        <div class="flex items-center align-center">
+          <p class="text-2xl font-medium">Nhân viên</p>
+          <router-link
+            :to="{ name: 'storeEmployee' }"
+            class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium">
+            Tạo mới
+          </router-link>
+        </div>
+        <div class="border-t border-zinc-100 mt-4">
+          <div class="flex items-center align-center gap-10 mt-3">
+            <div class="w-1/4">
+              <p>Tìm kiếm theo từ khóa</p>
+              <input type="text" v-model="search" placeholder="Tra cứu ..." class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900" />
+            </div>
+            <div class="w-1/4">
+              <p>Phòng ban</p>
+              <select class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+                  <option v-for="department in departments" :key="department.id" :value="department.id">
+                      {{ department.department_name }}
+                  </option>   
+              </select>
+            </div>
+            <div class="w-1/4">
+              <p>Vai trò</p>
+              <select name="role" v-model="role" class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+                  <option :value="admin">Admin</option>
+                  <option value="employee">Employee</option>
+              </select>
+            </div>
+            <div class="w-1/4">
+              <p>Trạng thái</p>
+              <select name="status" v-model="status" class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+                  <option :value="active">Active</option>
+                  <option value="disabled">disabled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="flex mt-4 gap-4">
+          <button class="px-4 py-2 text-white bg-sky-500 rounded-xl hover:bg-sky-400">Tìm kiếm</button>
+          <button class="px-4 py-2 bg-zinc-100 rounded-xl hover:bg-zinc-300">Reset tìm kiếm</button>
+        </div>
       </div>
 
       <table class="w-full text-left bg-white rounded-lg">
@@ -186,6 +211,7 @@ export default {
   data() {
     return {
       employees: {},
+      departments: {},
       user: this.$cookies.get("user"),
     };
   },
@@ -201,7 +227,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data.data)
           this.employees = response.data.data;
         });
     },
@@ -218,9 +243,23 @@ export default {
           this.getEmployees()
         });
     },
+    getDepartments() {
+      const token = this.$cookies.get("token");
+
+      axios
+        .get("http://127.0.0.1:8000/api/admin/departments", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.departments = response.data.data;
+        });
+    }
   },
   created() {
     this.getEmployees();
+    this.getDepartments();
   },
 };
 </script>

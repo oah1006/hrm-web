@@ -4,24 +4,25 @@
         <NavigationBar />
         <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
             <p class="font-base text-zinc-500">HRM-HT/ Loại xin nghỉ phép</p>
-            <div
-                class="
-                flex
-                items-center
-                align-center
-                my-4
-                bg-white
-                px-4
-                py-3
-                rounded-md
-                "
-            >
-                <p class="text-2xl font-medium">Các loại xin nghỉ phép</p>
-                <router-link 
-                :to="{name: 'storeLeaveType'}"
-                class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
-                >Tạo mới</router-link
-                >
+            <div class="my-4 bg-white px-4 py-3 rounded-md">
+                <div class="flex items-center align-center">
+                    <p class="text-2xl font-medium">Các loại xin nghỉ phép</p>
+                    <router-link 
+                        :to="{name: 'storeLeaveType'}"
+                        class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium">
+                        Tạo mới
+                    </router-link>
+                </div>
+                <div class="border-t border-zinc-100 mt-4">
+                    <div class="mt-3">
+                        <p class="w-1/5">Tìm kiếm theo từ khóa</p>
+                        <input type="text" v-model="search" placeholder="Tra cứu ..." class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900" />
+                    </div>
+                </div>
+                <div class="flex mt-6 gap-4">
+                    <button class="px-4 py-2 text-white bg-sky-500 rounded-xl hover:bg-sky-400">Tìm kiếm</button>
+                    <button class="px-4 py-2 bg-zinc-100 rounded-xl hover:bg-zinc-300">Reset tìm kiếm</button>
+                </div>
             </div>
 
             <table class="w-full text-left bg-white rounded-lg">
