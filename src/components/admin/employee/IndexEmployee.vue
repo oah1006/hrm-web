@@ -1,8 +1,8 @@
 <template>
   <Navbar :user="user" />
-  <div class="flex">
+  <div class="flex h-screen">
     <NavigationBar />
-    <div class="bg-sky-50 grow h-screen px-10 py-6">
+    <div class="bg-sky-50 grow px-10 py-6">
       <p class="font-base text-zinc-500">HRM-HT/ Nhân viên</p>
       <div class="my-4 bg-white px-4 py-3 rounded-md">
         <div class="flex items-center align-center">
@@ -14,7 +14,7 @@
           </router-link>
         </div>
         <div class="border-t border-zinc-100 mt-4">
-          <div class="flex items-center align-center gap-10 mt-3">
+          <div class="flex items-center gap-10 mt-3">
             <div class="w-1/4">
               <p>Tìm kiếm theo từ khóa</p>
               <input type="text" v-model="search" placeholder="Tra cứu ..." class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900" />
@@ -138,10 +138,10 @@
               </button>
             </td>
           </tr>
-          <ModalDelete :idEmployee="idEmployee" v-if="isModal" @close="isModal=false" @remove-item="removeEmployee"/>
         </tbody>
       </table>
     </div>
+    <ModalDelete :id="id" v-if="isModal" @close="isModal=false" @remove-item="removeEmployee"/>
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <Navbar :user="user" />
-  <div class="flex h-screen min-h-full">
+  <div class="flex h-screen">
     <NavigationBar />
-    <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
+    <div class="bg-sky-50 grow px-10 py-6">
       <p class="font-base text-zinc-500">HRM-HT/ Phòng ban</p>
       <div class="my-4 bg-white px-4 py-3 rounded-md">
         <div class="flex items-center align-center">
@@ -40,7 +40,7 @@
             </td>
             <td class="lg:pl-4 py-3 w-1/3">
               <div class="flex mr-4">
-                <div class="flex items-center align-center ml-auto gap-3">
+                <div class="flex items-center ml-auto gap-3">
                   <router-link
                   :to="{
                     name: 'detailDepartment',
@@ -84,7 +84,7 @@
                     />
                   </svg>
                 </router-link>
-                <button @click="removeDepartment(department.id)">
+                <button @click="showModal(department.id)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -107,12 +107,14 @@
         </tbody>
       </table>
     </div>
+    <ModalDelete :id="id" v-if="isModal" @close="isModal=false" @remove-item="removeDepartment"/>
   </div>
 </template>
 
 <script>
 import Navbar from "../../navbar/Navbar.vue";
 import NavigationBar from "../../NavigationBar/NavigationBar.vue";
+import ModalDelete from "../modal/ModalDelete.vue"
 
 import axios from "axios";
 
@@ -120,6 +122,7 @@ export default {
   components: {
     Navbar,
     NavigationBar,
+    ModalDelete
   },
   props: {
     timer: {
@@ -129,6 +132,8 @@ export default {
   },
   data() {
     return {
+      id: '',
+      isModal: false,
       user: this.$cookies.get("user"),
       departments: [],
       search: '',
@@ -183,6 +188,10 @@ export default {
             this.debounce = null
           })
       }, 300)
+    },
+    showModal(id) {
+      this.isModal = true;
+      this.id = id;
     }
   },
   created() {

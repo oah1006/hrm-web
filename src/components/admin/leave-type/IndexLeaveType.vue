@@ -1,8 +1,8 @@
 <template>
     <Navbar :user="user" />
-    <div class="flex">
+    <div class="flex h-screen">
         <NavigationBar />
-        <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
+        <div class="bg-sky-50 grow px-10 py-6">
             <p class="font-base text-zinc-500">HRM-HT/ Loại lý do xin nghỉ phép</p>
             <div class="my-4 bg-white px-4 py-3 rounded-md">
                 <div class="flex items-center align-center">
@@ -84,7 +84,7 @@
                                 />
                                 </svg>
                             </router-link>
-                            <button @click="removeLeaveType(leaveType.id)">
+                            <button @click="showModal(leaveType.id)">
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -105,21 +105,27 @@
                 </tbody>
             </table>
         </div>
+        <ModalDelete :id="id" v-if="isModal" @close="isModal=false" @remove-item="removeLeaveType"/>
     </div>
 </template>
 
 <script>
 import Navbar from "../../navbar/Navbar.vue"
 import NavigationBar from "../../NavigationBar/NavigationBar.vue"
+import ModalDelete from "../modal/ModalDelete.vue"
+
 import axios from "axios"
 
 export default {
     components: {
         Navbar,
-        NavigationBar
+        NavigationBar,
+        ModalDelete
     },
     data() {
         return {
+            id: '',
+            isModal: '',
             leaveTypes: {},
             search: '',
             debounce: null,
@@ -172,6 +178,10 @@ export default {
                     this.leaveTypes = response.data.data
                 })
             }, 300)
+        },
+        showModal(id) {
+            this.isModal = true;
+            this.id = id;
         }
     },
     created() {

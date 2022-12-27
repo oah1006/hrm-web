@@ -1,6 +1,6 @@
 <template>
     <div class="fixed top-0 left-0 w-full flex h-screen justify-center items-center">
-        <div class="absolute opacity-5 bg-black w-full h-screen flex items-center align-center z-10">
+        <div class="absolute opacity-5 bg-black w-full h-screen flex items-center z-10">
         </div>
         <div class="w-1/3 mx-auto rounded-lg shadow-md z-50">
             <div class="bg-white px-8 py-8">
@@ -9,7 +9,7 @@
             </div>
             <div class="bg-sky-100 w-full h-full flex justify-end items-center gap-8 px-8 py-4">
                 <a class="cursor-pointer text-zinc-700 px-3 py-2" @click="close()">Hủy</a>
-                <button @click="removeItem(idEmployee)" class="bg-sky-400 text-white px-6 py-2 rounded-md">Đồng ý</button>
+                <button @click="removeItem(id)" class="bg-sky-400 text-white px-6 py-2 rounded-md">Đồng ý</button>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    props: ['idEmployee'],
+    props: ['id'],
     methods: {
         close() {
             this.$emit("close")
