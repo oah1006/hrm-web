@@ -2,7 +2,7 @@
     <Navbar :user="user" />
     <div class="flex">
         <NavigationBar />
-        <div class="grow lg:px-10 lg:py-6" v-if="employee.id">
+        <div class="grow lg:px-10 lg:py-6 bg-sky-50" v-if="employee.id">
             <div class="flex items-center">
                 <p class="text-4xl text-zinc-500 font-light">Thông tin nhân viên</p>
                 <div class="flex gap-3 ml-auto">
@@ -27,17 +27,18 @@
                     <p class="grow text-cyan-500 font-medium">{{ employee.email }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Tên</p>
-                    <p class="grow text-cyan-500 font-medium">{{ employee.first_name }}</p>
-                </div>
-
-                <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Tên lót</p>
+                    <p class="w-1/3">Họ</p>
                     <p class="grow">{{ employee.last_name }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
+                    <p class="w-1/3">Tên</p>
+                    <p class="grow text-cyan-500 font-medium">{{ employee.first_name }}</p>
+                </div>
+                <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Giới tính</p>
-                    <p class="grow">{{ employee.gender }}</p>
+                    <p v-if="employee.gender === '1'" class="grow">Nam</p>
+                    <p v-else-if="employee.gender === '2'" class="grow">Nữ</p>
+                    <p v-else class="grow">Khác</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Số điện thoại</p>
@@ -53,11 +54,21 @@
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Vai trò</p>
-                    <p class="grow">{{ employee.role }}</p>
+                    <p v-if="employee.role === 'admin'" class="text-white rounded-md font-medium px-3 py-0 bg-red-500">
+                        {{ employee.role }}
+                    </p>
+                    <p v-else class="text-green-500 rounded-md font-medium">
+                        {{ employee.role }}
+                    </p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Trạng thái</p>
-                    <p class="grow">{{ employee.status }}</p>
+                    <p v-if="employee.status === 'active'" class="bg-sky-500 text-white rounded-md inline-block text-center font-medium py-0 px-2">
+                        {{ employee.status }}
+                    </p>
+                    <p v-else class="bg-zinc-400 text-white rounded-md inline-block text-center font-medium py-0 px-2 text-sm">
+                        {{ employee.status }}
+                    </p>
                 </div>
             </div>
             <router-link :to="{name: 'employee'}" class="font-medium text-lg inline-flex mt-3 items-center rounded-md bg-white text-black px-4 py-2 shadow-lg hover:bg-zinc-50 gap-3">

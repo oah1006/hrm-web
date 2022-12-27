@@ -8,7 +8,7 @@
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                         <p class="w-1/4">Tên loại lý do xin nghỉ phép</p>
-                        <input type="text" name="type_name" v-model="type_name" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        <input type="text" name="type_name" v-model="type_name" placeholder="Tên loại lý do xin nghỉ phép..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>         
                 </div>
                 <div class="flex mt-4">

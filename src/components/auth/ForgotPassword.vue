@@ -2,8 +2,8 @@
     <div class="w-full h-screen min-h-full bg-blue-100">
         <div class="flex items-center justify-center h-screen">
             <form @submit.prevent="handleSubmit" class="w-2/5 px-20 py-8 bg-white rounded-lg">
-                <p class="text-center font-medium text-3xl">Forgot your password?</p>
-                <p class="text-center text-base font-thin mt-1">Don't worry, enter your email below and we'll email you with otp on how to reset your password</p>
+                <p class="text-center font-medium text-3xl">Bạn quên mật khẩu?</p>
+                <p class="text-center text-base font-thin mt-1">Đừng lo lắng, hãy nhập email phía bên dưới để được nhận mã OTP xác thực người dùng và đổi mật khẩu nhé!</p>
                 <p class="mt-3">Email</p>
                 <input type="text" v-model="email" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-300" placeholder="Email" />
                 <p class="text-red-500 mt-1" v-if="error">{{ error.data }}</p>

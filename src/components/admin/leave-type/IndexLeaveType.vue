@@ -3,10 +3,10 @@
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow px-10 py-6 h-screen min-h-full">
-            <p class="font-base text-zinc-500">HRM-HT/ Loại xin nghỉ phép</p>
+            <p class="font-base text-zinc-500">HRM-HT/ Loại lý do xin nghỉ phép</p>
             <div class="my-4 bg-white px-4 py-3 rounded-md">
                 <div class="flex items-center align-center">
-                    <p class="text-2xl font-medium">Các loại xin nghỉ phép</p>
+                    <p class="text-2xl font-medium">Các loại lý do xin nghỉ phép</p>
                     <router-link 
                         :to="{name: 'storeLeaveType'}"
                         class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium">
@@ -24,7 +24,7 @@
             <table class="w-full text-left bg-white rounded-lg">
                 <thead class="uppercase rounded-lg">
                 <tr class="text-xs text-zinc-400 font-bold border-b">
-                    <td class="lg:px-4 py-3">Tên loại xin nghỉ phép</td>
+                    <td class="lg:px-4 py-3">Tên loại lý do xin nghỉ phép</td>
                     <td class=""></td>
                 </tr>
                 </thead>

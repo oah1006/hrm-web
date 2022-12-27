@@ -20,7 +20,8 @@
                         </div>
                         <div class="w-1/3">
                             <p>Loại lý do nghỉ phép</p>
-                            <select class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+                            <select name="filterLeaveType" v-model="filterLeaveType" class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+                                <option value="">Tất cả</option>
                                 <option v-for="leaveType in leaveTypes" :key="leaveType.id" :value="leaveType.id">
                                     {{ leaveType.type_name }}
                                 </option>   
@@ -28,8 +29,9 @@
                         </div>
                         <div class="w-1/3">
                             <p>Trạng thái</p>
-                            <select name="status" v-model="status" class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
-                                <option :value="pending">Pending</option>
+                            <select name="filterStatus" v-model="filterStatus" class="mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+                                <option value="">Tất cả</option>
+                                <option value="pending">Pending</option>
                                 <option value="approved">Approved</option> 
                                 <option value="rejected">Rejected</option>
                             </select>
@@ -83,9 +85,26 @@
                             {{ leave.end_day  }}
                         </td>
                         <td class="px-4 py-3">
-                            {{ leave.status }}
+                            <div v-if="leave.status === 'pending'" class="flex gap-1 items-center align-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-green-500 font-medium">{{ leave.status }}</p>
+                            </div>
+                            <div v-else-if="leave.status === 'approved'" class="flex gap-1 items-center align-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                <p class="text-blue-500 font-medium">{{ leave.status }}</p>
+                            </div>
+                            <div v-else-if="leave.status === 'rejected'" class="flex gap-1 items-center align-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-red-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-red-500 font-medium">{{ leave.status }}</p>
+                            </div>
                         </td>
-                        <td class="lg:pl-4 py-3 flex gap-3 items-center">
+                        <td class="lg:pl-4 py-3 flex gap-3 items-center align-center">
                             <router-link 
                             :to="{
                                     name: 'detailLeave',
@@ -137,6 +156,10 @@ export default {
     },
     data() {
         return {
+            search: '',
+            filterLeaveType: '',
+            filterStatus: '',
+            debounce: null,
             leaves: {},
             leaveTypes: {},
             user: this.$cookies.get('user')
@@ -181,11 +204,47 @@ export default {
             .then((response) => {
                 this.leaveTypes = response.data.data
             })
+        },
+        filterData() {
+            clearTimeout(this.debounce)
+
+            const token = this.$cookies.get('token')
+
+            this.debounce = setTimeout(() => {
+                axios
+                    .get('http://127.0.0.1:8000/api/admin/leaves?', {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                        params: {
+                            keywords: this.search,
+                            leave_type_id: this.filterLeaveType,
+                            status: this.filterStatus
+                        }
+                    })
+                    .then((response) => {
+                        console.log(response.data.data)
+                        this.leaves = response.data.data
+                    })
+            })
         }
     },
     created() {
         this.getLeaves();
         this.getLeaveTypes();
+    },
+    watch: {
+        search() {
+            this.filterData()
+        },
+
+        filterLeaveType() {
+            this.filterData()
+        },
+
+        filterStatus() {
+            this.filterData()
+        }
     }
 }
 </script>

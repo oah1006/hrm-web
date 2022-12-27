@@ -2,13 +2,13 @@
     <div class="w-full h-screen min-h-full bg-blue-100">
         <div class="flex items-center justify-center h-screen">
             <form @submit.prevent="handleSubmit" class="w-2/5 px-20 py-8 bg-white rounded-lg">
-                <p class="text-center font-medium text-3xl">Reset Password</p>
+                <p class="text-center font-medium text-3xl">Khôi phục mật khẩu</p>
                 <p class="text-red-500 mt-1" v-if="error">{{ error.message }}</p>
-                <p class="mt-3">New password</p>
-                <input type="password" v-model="new_password" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-200" placeholder="Password" />
-                <p class="mt3">Confirmation Password</p>
-                <input type="password" v-model="new_password_confirmation" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-200" placeholder="Confirmation password" />             
-                <button class="px-4 py-2 bg-cyan-500 w-full mt-4 rounded-sm text-white">Tạo mật khẩu mới</button>
+                <p class="mt-3">Mật khẩu mới</p>
+                <input type="password" v-model="new_password" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-200" placeholder="Mật khẩu" />
+                <p class="mt3">Nhập lại mật khẩu mới</p>
+                <input type="password" v-model="new_password_confirmation" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-200" placeholder="Nhập lại mật khẩu" />             
+                <button class="px-4 py-2 bg-cyan-500 w-full mt-4 rounded-sm text-white">Khôi phục</button>
             </form>
         </div>
     </div>

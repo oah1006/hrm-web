@@ -35,7 +35,7 @@
                         <input type="date" name="end_day" v-model="end_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div> 
                     <div :class="leave.employee.role == 'employee' ? isHidden : ''" class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Status</p>
+                        <p class="w-1/4">Trạng thái</p>
                         <select name="status" v-model="status" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option value="pending">Pending</option>
                             <option value="approved">Approved</option> 

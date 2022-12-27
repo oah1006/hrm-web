@@ -3,7 +3,7 @@
     <div class="flex h-screen">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 lg:py-6">
-            <p class="text-4xl text-zinc-500 font-light">Chỉnh sửa phòng ban</p>
+            <p class="text-4xl text-zinc-500 font-light">Cập nhật phòng ban</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">

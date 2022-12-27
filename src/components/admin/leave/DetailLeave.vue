@@ -4,7 +4,7 @@
         <NavigationBar />
         <div class="grow lg:px-10 lg:py-6" v-if="leave.id">
             <div class="flex items-center">
-                <p class="text-4xl text-zinc-500 font-light">Thông tin nhân viên</p>
+                <p class="text-4xl text-zinc-500 font-light">Thông tin đơn xin nghỉ</p>
                 <div class="flex gap-3 ml-auto">
                     <router-link v-if="leave.id" :to="{name: 'updateLeave', params: {id: leave.id}}" class="text-xl bg-blue-500 text-white py-3 px-3 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -23,16 +23,16 @@
 
             <div class="bg-white w-full rounded-lg shadow-md mt-8">
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
-                    <p class="w-1/3">Email</p>
-                    <p class="grow text-cyan-500 font-medium">{{ leave.employee.email }}</p>
-                </div>
-                <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Tên</p>
                     <p class="grow text-cyan-500 font-medium">{{ leave.employee.first_name }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
+                    <p class="w-1/3">Email</p>
+                    <p class="grow">{{ leave.employee.email }}</p>
+                </div>   
+                <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Loại lý do nghỉ phép</p>
-                    <p class="grow text-cyan-500 font-medium">{{ leave.leave_type.type_name }}</p>
+                    <p class="grow text-red-500 font-medium">{{ leave.leave_type.type_name }}</p>
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Lý do</p>
@@ -48,7 +48,24 @@
                 </div>
                 <div class="flex py-4 border-b border-solid border-gray-100 px-10">
                     <p class="w-1/3">Trạng thái</p>
-                    <p class="grow">{{ leave.status }}</p>
+                    <div v-if="leave.status === 'pending'" class="flex gap-1 items-center align-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-green-500 font-medium">{{ leave.status }}</p>
+                    </div>
+                    <div v-else-if="leave.status === 'approved'" class="flex gap-1 items-center align-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                        <p class="text-blue-500 font-medium">{{ leave.status }}</p>
+                    </div>
+                    <div v-else-if="leave.status === 'rejected'" class="flex gap-1 items-center align-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-red-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-red-500 font-medium">{{ leave.status }}</p>
+                    </div>
                 </div>
 
             </div>
@@ -56,7 +73,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                 </svg>
-                Danh sách nhân viên
+                Danh sách đơn xin nghỉ
             </router-link>
         </div>
     </div>
