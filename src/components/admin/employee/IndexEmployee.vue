@@ -91,63 +91,21 @@
               </p>
             </td>
             <td class="px-4 py-3">
-              <p
-                v-if="employee.status === 'active'"
-                class="
-                  bg-sky-500
-                  text-white
-                  rounded-md
-                  inline-block
-                  text-center
-                  font-medium
-                  py-0
-                  px-2
-                "
-              >
+              <p v-if="employee.status === 'active'" class="bg-sky-500 text-white rounded-md inline-block text-center font-medium py-0 px-2">
                 {{ employee.status }}
               </p>
-              <p
-                v-else
-                class="
-                  bg-zinc-400
-                  text-white
-                  rounded-md
-                  inline-block
-                  text-center
-                  font-medium
-                  py-0
-                  px-2
-                  text-sm
-                "
-              >
+              <p v-else class="bg-zinc-400 text-white rounded-md inline-block text-center font-medium py-0 px-2 text-sm">
                 {{ employee.status }}
               </p>
             </td>
-            <td
-              class="
-                lg:pl-4
-                py-3
-                text-zinc-500
-                hover:underline
-                flex
-                gap-3
-                items-center
-              "
-            >
+            <td class="lg:pl-4 py-3 text-zinc-500 hover:underline flex gap-3 items-center">
               <router-link
                 :to="{ 
                     name: 'detailEmployee', 
                     params: { id: employee.id } 
                 }"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -161,14 +119,7 @@
                     params: { id: employee.id } 
                 }"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -176,15 +127,8 @@
                   />
                 </svg>
               </router-link>
-              <button @click="removeEmployee(employee.id)">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+              <button @click="showModal(employee.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -194,6 +138,7 @@
               </button>
             </td>
           </tr>
+          <ModalDelete :idEmployee="idEmployee" v-if="isModal" @close="isModal=false" @remove-item="removeEmployee"/>
         </tbody>
       </table>
     </div>
@@ -203,17 +148,23 @@
 <script>
 import Navbar from "../../navbar/Navbar.vue";
 import NavigationBar from "../../NavigationBar/NavigationBar.vue";
+import ModalDelete from "../modal/ModalDelete.vue"
+
+
 import axios from "axios";
 
 export default {
   components: {
     Navbar,
     NavigationBar,
+    ModalDelete,
   },
 
   data() {
     return {
+      isModal: false,
       search: '',
+      idEmployee: '',
       filterDepartment: '',
       filterRole: '',
       filterStatus: '',
@@ -299,6 +250,11 @@ export default {
       this.search = '';
       this.getEmployees();
     },
+
+    showModal(id) {
+      this.isModal = true;
+      this.idEmployee = id;
+    }
   },
   created() {
     this.getEmployees();

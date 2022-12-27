@@ -27,6 +27,7 @@ import DetailLeave from '../components/admin/leave/DetailLeave.vue'
 
 import TableLoading from '../components/admin/loading-table/LoadingTable.vue'
 import Pagination from '../components/pagination/Pagination.vue'
+import ModalDelete from '../components/admin/modal/ModalDelete.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -209,6 +210,12 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
+    },
+
+    {
+      path: '/admin/modal-delete',
+      name: 'modalDelete',
+      component: ModalDelete,
     },
 
     {
