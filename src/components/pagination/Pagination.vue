@@ -1,42 +1,34 @@
 <template>
-    <ul class="flex list-reset border border-grey-light rounded w-auto font-sans">
-        <li>
-            <a class="block hover:text-white hover:bg-blue text-blue border-r border-grey-light px-3 py-2" 
-                href="#"
-                
-            >
-                Previous
-            </a>
-        </li>
-        <li>
-            <a class='   block px-3 py-2 bg-blue h-full border-blue hover:text-white hover:bg-blue text-blue border-r border-grey-light'
-                href="#"     
-            >
-               1
-            </a>
-        </li>
-        <li>
-            <a class="block hover:text-white hover:bg-blue text-blue px-3 py-2" 
-                href="#"
+    <div class="flex w-full justify-between">
+        <div class="text-zinc-500 ml-2 mt-2">
+            <p>Trang: {{ page }}</p>
+        </div>
+        <ul class="flex list-reset mt-3">
+            <li class="mr-2 rounded-full border bg-white hover:bg-sky-500 hover:text-white ">
+                <a class="block px-3 py-2 cursor-pointer" @click="prePage">
+                    Previous
+                </a>
+            </li>
 
-            >
-                Next
-            </a>
-        </li>
-    </ul>
+            <li class="mr-2 rounded-full border bg-white hover:bg-sky-500 hover:text-white ">
+                <a class="block px-3 py-2 cursor-pointer" @click="nextPage">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
 export default {
-    props: {
-        pagination: {
-            type: Object,
-            required: true
+    props: ['page'],
+    methods: {
+        nextPage() {
+            this.$emit("next-page")
+        },
+        prePage() {
+            this.$emit("pre-page")
         }
     }
 }
 </script>
-
-<style>
-
-</style>

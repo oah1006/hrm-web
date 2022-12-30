@@ -5,7 +5,7 @@
         <div class="bg-sky-50 grow px-10 py-6">
             <p class="font-base text-zinc-500">HRM-HT/ Loại lý do xin nghỉ phép</p>
             <div class="my-4 bg-white px-4 py-3 rounded-md">
-                <div class="flex items-center align-center">
+                <div class="flex items-center">
                     <p class="text-2xl font-medium">Các loại lý do xin nghỉ phép</p>
                     <router-link 
                         :to="{name: 'storeLeaveType'}"

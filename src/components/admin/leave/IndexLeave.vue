@@ -39,8 +39,7 @@
                     </div>
                 </div>
                 <div class="flex mt-4 gap-4">
-                    <button class="px-4 py-2 text-white bg-sky-500 rounded-xl hover:bg-sky-400">Tìm kiếm</button>
-                    <button class="px-4 py-2 bg-zinc-100 rounded-xl hover:bg-zinc-300">Reset tìm kiếm</button>
+                    <button @click="resetListEmployees" class="px-4 py-2 bg-sky-500 text-white rounded-xl hover:bg-sky-300">Reset tìm kiếm</button>
                 </div>
             </div>
 
@@ -239,6 +238,12 @@ export default {
         showModal(id) {
             this.isModal = true;
             this.id = id;
+        },
+        resetListEmployees() {
+            this.filterLeaveType = '';
+            this.filterStatus = '';
+            this.search = '';
+            this.getEmployees();
         }
     },
     created() {

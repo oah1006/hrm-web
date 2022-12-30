@@ -8,7 +8,7 @@
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                         <p class="w-1/4">Tên nhân viên</p>
-                        <select name="employee_id" v-model="employee_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        <select :disabled="true" name="employee_id" v-model="employee_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option v-for="employee in employees" :key="employee.id" :value="employee.id">
                                 {{ employee.first_name}}
                             </option>   
@@ -72,8 +72,8 @@ export default {
     },
     data() {
         return {
-            leave_type_id: '2',
-            employee_id: '1',
+            leave_type_id: '',
+            employee_id: '',
             reason: '',
             start_day: '',
             end_day: '',
@@ -104,7 +104,20 @@ export default {
             .then((response) => {
                 this.$router.push('/admin/leave')
             })
-        }
+        },
+        getProfile() {
+            const token = this.$cookies.get('token');
+
+            axios
+            .get('http://127.0.0.1:8000/api/admin/profile', {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then((response) => {
+                this.employee_id = response.data.id
+            })
+        },
     }, 
     created() {
         const token = this.$cookies.get('token')
@@ -116,6 +129,7 @@ export default {
             }
         })
         .then((response) => {
+            console.log(response.data)
             this.leaveTypes = response.data.data 
         })
 
@@ -128,6 +142,8 @@ export default {
         .then((response) => {
             this.employees = response.data.data 
         })
+
+        this.getProfile();
     }
 }
 </script>

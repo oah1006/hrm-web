@@ -9,6 +9,8 @@ import IndexEmployee from '../components/admin/employee/IndexEmployee.vue'
 import StoreEmployee from '../components/admin/employee/StoreEmployee.vue'
 import UpdateEmployee from '../components/admin/employee/UpdateEmployee.vue'
 import DetailEmployee from '../components/admin/employee/DetailEmployee.vue'
+import Profile from '../components/admin/employee/Profile.vue'
+import ChangePassword from '../components/admin/employee/ChangePassword.vue'
 
 import IndexDepartment from '../components/admin/department/IndexDepartment.vue'
 import StoreDepartment from '../components/admin/department/StoreDepartment.vue'
@@ -46,6 +48,22 @@ const router = createRouter({
       path: '/admin/employee',
       name: 'employee',
       component: IndexEmployee,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin/employee/change-password',
+      name: 'change-password',
+      component: ChangePassword,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin/employee/profile',
+      name: 'profile',
+      component: Profile,
       meta: {
         requiresAuth: true
       }
@@ -210,12 +228,6 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
-    },
-
-    {
-      path: '/admin/modal-delete',
-      name: 'modalDelete',
-      component: ModalDelete,
     },
 
     {
