@@ -140,7 +140,9 @@
           </tr>
         </tbody>
       </table>
+      <Pagination :page="page" @next-page="nextPage" @pre-page="prePage"/>
     </div>
+
     <ModalDelete :id="id" v-if="isModal" @close="isModal=false" @remove-item="removeEmployee"/>
   </div>
 </template>
@@ -149,6 +151,7 @@
 import Navbar from "../../navbar/Navbar.vue";
 import NavigationBar from "../../NavigationBar/NavigationBar.vue";
 import ModalDelete from "../modal/ModalDelete.vue"
+import Pagination from "../../pagination/Pagination.vue"
 
 
 import axios from "axios";
@@ -158,13 +161,14 @@ export default {
     Navbar,
     NavigationBar,
     ModalDelete,
+    Pagination
   },
 
   data() {
     return {
       isModal: false,
       search: '',
-      idEmployee: '',
+      id: '',
       filterDepartment: '',
       filterRole: '',
       filterStatus: '',
@@ -172,20 +176,34 @@ export default {
       employees: {},
       departments: {},
       user: this.$cookies.get("user"),
+      postsData: {
+        per_page: '',
+        current_page: '',
+        next_page_url: '',
+        prev_page_url: '',
+        total: '',
+        last_page: '',
+      },
+      page: 1
     };
   },
 
   methods: {
     getEmployees() {
       const token = this.$cookies.get("token");
+      const page = this.page;
 
       axios
-        .get("http://127.0.0.1:8000/api/admin/employees", {
+        .get("http://127.0.0.1:8000/api/admin/employees?", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params: {
+            page
+          }
         })
         .then((response) => {
+          this.postsData.last_page = response.data.last_page
           this.employees = response.data.data;
         });
     },
@@ -253,7 +271,23 @@ export default {
 
     showModal(id) {
       this.isModal = true;
-      this.idEmployee = id;
+      this.id = id;
+    },
+
+    nextPage() {
+      if (this.page == this.postsData.last_page) {
+        return
+      }
+
+      this.page++;
+    },
+
+    prePage() {
+      if (this.page == 1) {
+        return
+      }
+
+      this.page--;  
     }
   },
   created() {
@@ -275,6 +309,10 @@ export default {
 
     filterStatus() {
       this.filterData()
+    },
+
+    page() {
+      this.getEmployees()
     }
   }
 };
