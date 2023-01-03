@@ -43,7 +43,7 @@ export default {
                 }
             })
             .then((response) => {
-                this.$router.push('/login')
+                this.$router.push('/')
             })
             .catch((error) => {
                 this.error = error.response.data

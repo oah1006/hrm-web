@@ -6,6 +6,7 @@
                 <p class="text-center text-base font-thin mt-1">Vui lòng nhập mã OTP 6 chữ số đã được gửi đến email của bạn</p>
                 <p class="text-center text-base font-thin">Mã OTP sẽ có hiệu lực trong 1 phút</p>
                 <p class="mt-3">Mã OTP</p>
+                <p class="text-red-500 mt-3" v-if="error">{{ error.message }}</p>
                 <input type="text" v-model="otpCode" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-200" placeholder="Your OTP" />         
                 <input type="hidden" v-model="email" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-200" placeholder="Your OTP" />
                 <button class="px-4 py-2 bg-cyan-500 w-full mt-4 rounded-sm text-white">Xác thực OTP</button>
@@ -19,7 +20,8 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            otpCode: ''
+            otpCode: '',
+            error: ''
         }
     },
     methods: {
@@ -34,6 +36,9 @@ export default {
             .then((response) => {
                 this.$cookies.set('tokenOtp', response.data.token, 60 * 60 * 24)
                 this.$router.push(`/reset-password?email=${this.$route.query.email}`)
+            })
+            .catch((error) => {
+                this.error = error.response.data
             })
         }
     }

@@ -229,15 +229,6 @@ const router = createRouter({
         requiresAuth: true
       }
     },
-
-    {
-      path: '/pagination',
-      name: 'pagination',
-      component: Pagination,
-      meta: {
-        requiresAuth: true
-      }
-    }
   ]
 })
 

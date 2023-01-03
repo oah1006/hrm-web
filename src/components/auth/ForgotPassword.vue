@@ -5,8 +5,8 @@
                 <p class="text-center font-medium text-3xl">Bạn quên mật khẩu?</p>
                 <p class="text-center text-base font-thin mt-1">Đừng lo lắng, hãy nhập email phía bên dưới để được nhận mã OTP xác thực người dùng và đổi mật khẩu nhé!</p>
                 <p class="mt-3">Email</p>
-                <input type="text" v-model="email" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-300" placeholder="Email" />
-                <p class="text-red-500 mt-1" v-if="error">{{ error.data }}</p>
+                <p class="text-red-500 mt-1" v-if="error">{{ error.message }}</p>
+                <input type="text" v-model="email" class="rounded-md px-2 py-2 mt-1 w-full border border-zinc-300" placeholder="Email" />         
                 <button class="px-4 py-2 bg-cyan-500 w-full mt-4 rounded-sm text-white">Gửi OTP</button>
             </form>
         </div>
@@ -33,6 +33,7 @@ export default {
             .then((response) => {
                 this.$router.push(`/verify-otp?email=${this.email}`)
             }).catch((error) => {
+                console.log(error.response.data)
                 this.error = error.response.data
             })
         }

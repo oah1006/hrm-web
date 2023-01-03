@@ -3,7 +3,7 @@
     <div class="flex h-screen">
         <NavigationBar />
         <div class="bg-sky-50 grow px-10 py-6">
-            <p class="font-base text-zinc-500">HRM-HT/ Thông tin cá nhân</p>
+            <p class="font-base text-zinc-500">HRM-HT/ Cập nhật mật khẩu</p>
             <div class="my-4 bg-white px-4 py-3 rounded-md flex justify-center items-center">
                 <p class="text-2xl font-medium">Cập nhật mật khẩu</p>
                 <router-link
