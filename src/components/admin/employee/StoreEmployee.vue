@@ -6,29 +6,47 @@
             <p class="text-4xl text-zinc-500 font-light">Tạo nhân viên</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Email</p>
-                        <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Email</p>
+                            <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.email[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Mật khẩu</p>
-                        <input type="password" name="password" v-model="password" placeholder="Password" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
-                    </div> 
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Tên:</p>
-                        <input type="text" name="first_name" v-model="first_name" placeholder="First Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Mật khẩu</p>
+                            <input type="password" name="password" v-model="password" placeholder="Mật khẩu" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.password[0] }}</p>
+                    </div>  
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Họ</p>
+                            <input type="text" name="last_name" v-model="last_name" placeholder="Họ" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.last_name[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Tên lót:</p>
-                        <input type="text" name="last_name" v-model="last_name" placeholder="Last Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Tên:</p>
+                            <input type="text" name="first_name" v-model="first_name" placeholder="Tên" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.first_name[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Số điện thoại:</p>
-                        <input type="text" name="phone_number" v-model="phone_number" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Số điện thoại:</p>
+                            <input type="text" name="phone_number" v-model="phone_number" placeholder="Số điện thoại" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.phone_number[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Ngày sinh:</p>
-                        <input type="date" name="birth_date" v-model="birth_date" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Ngày sinh:</p>
+                            <input type="date" name="birth_date" v-model="birth_date" placeholder="Ngày sinh" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.birth_date[0] }}</p>
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                         <p class="w-1/12">Giới tính</p>
@@ -107,6 +125,7 @@ export default {
             birth_date: '',
             role: 'admin',
             status: 'active',
+            error: '',
             isLoading: ref(false),
             department_id: '1',
             user: this.$cookies.get('user'),
@@ -141,6 +160,10 @@ export default {
             })
             .then((response) => {
                 this.$router.push('/admin/employee')
+            })
+            .catch((error) => {
+                console.log(error.response.data.errors)
+                this.error = error.response.data
             })
         }
     },
