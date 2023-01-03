@@ -42,8 +42,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    
+    data() {
+        return {
+            employee: {},
+        }
+    },
+    methods: {
+        getProfile() {
+            const token = this.$cookies.get('token');
+
+            axios
+            .get('http://127.0.0.1:8000/api/admin/profile', {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then((response) => {
+                this.employee = response.data;
+            })
+        },
+    },
+
+    created() {
+        this.getProfile;
+    }
 }
 </script>
 
