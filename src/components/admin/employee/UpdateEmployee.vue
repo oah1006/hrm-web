@@ -6,21 +6,33 @@
       <p class="text-4xl text-zinc-500 font-light">Cập nhật nhân viên</p>
       <form @submit.prevent="handleSubmit">
         <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-            <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
+            <div class="border-b boder-gray-100 border-solid py-6">
+              <div class="flex items-center gap-4 px-10">
                 <p class="w-1/12">Email</p>
                 <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+              </div>
+              <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.email[0] }}</p>
             </div>
-            <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
+            <div class="border-b boder-gray-100 border-solid py-6">
+              <div class="flex items-center gap-4 px-10">
+                <p class="w-1/12">Họ</p>
+                <input type="text" name="last_name" v-model="last_name" placeholder="Last Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+              </div>
+              <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.last_name[0] }}</p>
+            </div>
+            <div class="border-b boder-gray-100 border-solid py-6">
+              <div class="flex items-center gap-4 px-10">
                 <p class="w-1/12">Tên:</p>
                 <input type="text" name="first_name" v-model="first_name" placeholder="First Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+              </div>
+              <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.first_name[0] }}</p>
             </div>
-            <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                <p class="w-1/12">Tên lót:</p>
-                <input type="text" name="last_name" v-model="last_name" placeholder="Last Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
-            </div>
-            <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
+            <div class="border-b boder-gray-100 border-solid py-6">
+              <div class="flex items-center gap-4 px-10">
                 <p class="w-1/12">Số điện thoại:</p>
                 <input type="text" name="phone_number" v-model="phone_number" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+              </div>  
+              <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.phone_number[0] }}</p>
             </div>
             <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                 <p class="w-1/12">Ngày sinh:</p>
@@ -114,9 +126,10 @@ export default {
       birth_date: "",
       role: "admin",
       status: "active",
-      department_id: "1",
+      department_id: "",
       departments: [],
       employee: [],
+      error: '',
       user: this.$cookies.get("user"),
     };
   },
@@ -148,7 +161,10 @@ export default {
         )
         .then((response) => {
           this.$router.push("/admin/employee");
-        });
+        })
+        .catch((error) => {
+          this.error = error.response.data
+        })
     },
   },
   beforeMount() {
