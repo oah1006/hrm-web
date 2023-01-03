@@ -1,6 +1,6 @@
 <template>
     <div class="fixed top-0 left-0 w-full flex h-screen justify-center items-center">
-        <div class="absolute opacity-5 bg-black w-full h-screen flex items-center z-10">
+        <div class="absolute opacity-20 bg-black w-full h-screen flex items-center z-10">
         </div>
         <div class="w-1/3 mx-auto rounded-lg shadow-md z-50">
             <div class="bg-white px-8 py-8">
