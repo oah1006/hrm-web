@@ -30,6 +30,10 @@ import DetailLeave from '../components/admin/leave/DetailLeave.vue'
 import TableLoading from '../components/admin/loading-table/LoadingTable.vue'
 import Pagination from '../components/pagination/Pagination.vue'
 import ModalDelete from '../components/admin/modal/ModalDelete.vue'
+import LoadingPage from '../components/admin/loading-page/LoadingPage.vue'
+import ToastNotification from '../components/admin/toast/ToastNotification.vue'
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -222,13 +226,12 @@ const router = createRouter({
     },
     
     {
-      path: '/admin/table-loading',
-      name: 'tableLoading',
-      component: TableLoading,
-      meta: {
-        requiresAuth: true
-      }
+      path: '/toast',
+      name: 'toast',
+      component: ToastNotification
     },
+
+
   ]
 })
 
