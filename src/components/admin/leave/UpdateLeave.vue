@@ -2,7 +2,7 @@
     <Navbar :user="user" />
     <div class="flex">
         <NavigationBar />
-        <div class="bg-sky-50 grow lg:px-10 lg:py-6 h-screen">
+        <div class="bg-sky-50 grow lg:px-10 py-6 h-screen">
             <p class="text-4xl text-zinc-500 font-light">Cập nhật đơn xin nghỉ phép</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
@@ -14,27 +14,37 @@
                             </option>   
                         </select>
                     </div>  
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Tên loại lý do xin nghỉ phép</p>
-                        <select name="leave_type_id" v-model="leave_type_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
-                            <option v-for="leaveType in leaveTypes" :key="leaveType.id" :value="leaveType.id">
-                                {{ leaveType.type_name }}
-                            </option>   
-                        </select>
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Tên loại lý do xin nghỉ phép</p>
+                            <select name="leave_type_id" v-model="leave_type_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                                <option value="" disabled selected hidden>Chọn loại lý do</option>
+                                <option v-for="leaveType in leaveTypes" :key="leaveType.id" :value="leaveType.id">
+                                    {{ leaveType.type_name }}
+                                </option>   
+                            </select>
+                        </div>
                     </div> 
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Lý do xin nghỉ phép</p>
-                        <input type="text" name="reason" v-model="reason" placeholder="Lý do..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Lý do xin nghỉ phép</p>
+                            <input type="text" name="reason" v-model="reason" placeholder="Lý do..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-[275px] pb-3" v-if="error?.errors?.reason">{{ error?.errors?.reason[0] }}</p>
                     </div>  
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Ngày bắt đầu nghỉ</p>
-                        <input type="date" name="start_day" v-model="start_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Ngày bắt đầu nghỉ</p>
+                            <input type="date" name="start_day" v-model="start_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
                     </div> 
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Ngày kết thúc nghỉ</p>
-                        <input type="date" name="end_day" v-model="end_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Ngày kết thúc nghỉ</p>
+                            <input type="date" name="end_day" v-model="end_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
                     </div> 
-                    <div :class="leave.employee.role == 'employee' ? isHidden : ''" class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
+                    <div :class="leave.employee?.role == 'employee' ? isHidden : ''" class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                         <p class="w-1/4">Trạng thái</p>
                         <select name="status" v-model="status" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option value="pending">Pending</option>
@@ -89,6 +99,7 @@ export default {
             leaveTypes: {},
             leaves: {},
             leave: {},
+            error: {},
             user: this.$cookies.get('user')
         }
     },
@@ -113,6 +124,13 @@ export default {
             })
             .then((response) => {
                 this.$router.push('/admin/leave')
+                this.$store.dispatch('showToast', {
+                    text: 'Cập nhật đơn nghỉ phép thành công',
+                    visible: true
+                })
+            })
+            .catch((error) => {
+                this.error = error.response.data
             })
         }
     },

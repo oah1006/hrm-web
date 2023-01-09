@@ -44,11 +44,19 @@
                     .then((response) => {
                         this.$cookies.set('user', response.data.employee)
                         this.$cookies.set('token', response.data.token, 60 * 60 * 24)
-                        
                         this.$router.push('/admin/dashboard')
+                        this.$store.commit("showToast", {
+                            text: "Đăng nhập thành công!",
+                            visible: true
+                        });
+
+                        this.$store.dispatch('showToast', {
+                            text: 'Đăng nhập thành công',
+                            visible: true
+                        })
                     })
                     .catch((error) => {
-                        this.error = error.response.data
+
                     })
             }
         }

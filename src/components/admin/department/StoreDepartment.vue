@@ -6,13 +6,19 @@
             <p class="text-4xl text-zinc-500 font-light">Tạo phòng ban</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Tên phòng ban</p>
-                        <input type="text" name="department_name" v-model="department_name" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Tên phòng ban</p>
+                            <input type="text" name="department_name" v-model="department_name" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.department_name">{{ error?.errors?.department_name[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Mô tả</p>
-                        <input type="text" name="description" v-model="description" placeholder="Mô tả..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Mô tả</p>
+                            <input type="text" name="description" v-model="description" placeholder="Mô tả..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.description">{{ error?.errors?.description[0] }}</p>
                     </div>              
                 </div>
                 <div class="flex mt-4">
@@ -53,6 +59,7 @@ export default {
         return {
             department_name: '',
             description: '',
+            error: {},
             user: this.$cookies.get('user')
         }
     },
@@ -73,6 +80,13 @@ export default {
             })
             .then((response) => {
                 this.$router.push('/admin/department')
+                this.$store.dispatch('showToast', {
+                    text: 'Tạo phòng ban thành công',
+                    visible: true
+                })
+            })
+            .catch((error) => {
+                this.error = error.response.data
             })
         }
     }

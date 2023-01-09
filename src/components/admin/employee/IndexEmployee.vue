@@ -161,7 +161,6 @@ import ModalDelete from "../modal/ModalDelete.vue"
 import Pagination from "../../pagination/Pagination.vue"
 import LoadingTable from "../loading-table/LoadingTable.vue"
 
-
 import axios from "axios";
 
 export default {
@@ -170,7 +169,7 @@ export default {
     NavigationBar,
     ModalDelete,
     Pagination,
-    LoadingTable
+    LoadingTable,
   },
 
   data() {
@@ -204,12 +203,14 @@ export default {
         })
         .then((response) => {
           this.employees = response.data.data;
-          this.isLoading = false;
+          this.isLoading = false
         });
     },
 
     removeEmployee(id) {
       const token = this.$cookies.get("token");
+
+      this.isLoading = true;
 
       axios
         .delete("http://127.0.0.1:8000/api/admin/employees/" + id, {
@@ -219,7 +220,32 @@ export default {
         })
         .then((response) => {
           this.getEmployees()
+          this.$store.dispatch('showToast', {
+                text: 'Xóa nhân viên thành công',
+                visible: true
+            })
         });
+
+      this.debounce = setTimeout(() => {
+        axios
+          .get('http://127.0.0.1:8000/api/admin/employees?', {
+            headers: {
+              Authorization: 'Bearer ' + token
+            },
+            params: {
+              page: this.page,
+              department_id: this.filterDepartment,
+              status: this.filterStatus,
+              role: this.filterRole,
+              keywords: this.search
+            }
+          })
+          .then((response) => {
+            this.last_page = response.data.last_page
+            this.isLoading = false
+            this.employees = response.data.data
+          })
+      }, 400)
     },
 
     getDepartments() {

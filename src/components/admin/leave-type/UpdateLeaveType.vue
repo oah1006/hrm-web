@@ -2,13 +2,16 @@
     <Navbar :user="user" />
     <div class="flex">
         <NavigationBar />
-        <div class="bg-sky-50 grow lg:px-10 lg:py-6">
+        <div class="bg-sky-50 grow lg:px-10 lg:py-6 h-screen">
             <p class="text-4xl text-zinc-500 font-light">Cập nhật loại lý do xin nghỉ phép</p>
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Tên loại lý do</p>
-                        <input type="text" name="type_name" v-model="type_name" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Tên loại lý do xin nghỉ phép</p>
+                            <input type="text" name="type_name" v-model="type_name" placeholder="Tên loại lý do xin nghỉ phép..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-[275px] pb-3" v-if="error?.errors?.type_name">{{ error?.errors?.type_name[0] }}</p>
                     </div>         
                 </div>
                 <div class="flex mt-4">
@@ -47,7 +50,8 @@ export default {
     data() {
         return {
             type_name: '',
-            user: this.$cookies.get('user')
+            user: this.$cookies.get('user'),
+            error: {}
         }
     },
     methods: {
@@ -66,6 +70,13 @@ export default {
             })
             .then((response) => {
                 this.$router.push('/admin/leave-type')
+                this.$store.dispatch('showToast', {
+                    text: 'Cập nhật loại lý do thành công',
+                    visible: true
+                })
+            })
+            .catch((error) => {
+                this.error = error.response.data
             })
         }
     },

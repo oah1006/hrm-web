@@ -13,25 +13,39 @@
             
             <form @submit.prevent="handleSubmit">
                 <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Email</p>
-                        <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Email</p>
+                            <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.email">{{ error?.errors?.email[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Họ:</p>
-                        <input type="text" name="last_name" v-model="last_name" placeholder="Last Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Họ</p>
+                            <input type="text" name="last_name" v-model="last_name" placeholder="Họ" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.last_name">{{ error?.errors?.last_name[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Tên:</p>
-                        <input type="text" name="first_name" v-model="first_name" placeholder="First Name" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Tên</p>
+                            <input type="text" name="first_name" v-model="first_name" placeholder="Tên" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.first_name">{{ error?.errors?.first_name[0] }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Số điện thoại:</p>
-                        <input type="text" name="phone_number" v-model="phone_number" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Số điện thoại:</p>
+                            <input type="text" name="phone_number" v-model="phone_number" placeholder="Số điện thoại" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.phone_number">{{ error?.errors?.phone_number[0]  }}</p>
                     </div>
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/12">Ngày sinh:</p>
-                        <input type="date" name="birth_date" v-model="birth_date" placeholder="Phone number" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/12">Ngày sinh:</p>
+                            <input type="date" name="birth_date" v-model="birth_date" placeholder="Ngày sinh" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-end mt-4">
@@ -50,12 +64,10 @@
 <script>
 import Navbar from "../../navbar/Navbar.vue";
 import NavigationBar from "../../NavigationBar/NavigationBar.vue";
-
-
-
 import axios from "axios";
 
 export default {
+    inject: ['employee'],
     components: {
         Navbar, 
         NavigationBar
@@ -68,29 +80,12 @@ export default {
             last_name: '',
             phone_number: '',
             birth_date: '',
+            employeeData: this.employee,
+            error: {}
         }
     },
     methods: {
-        getProfile() {
-            const token = this.$cookies.get('token');
-
-            axios
-            .get('http://127.0.0.1:8000/api/admin/profile', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-            .then((response) => {
-                this.email = response.data.email
-                this.last_name = response.data.last_name
-                this.first_name = response.data.first_name
-                this.phone_number = response.data.phone_number
-                this.birth_date = response.data.birth_date 
-            })
-        },
-
         handleSubmit() {
-            console.log('hello')
             const token = this.$cookies.get('token');
 
             const data = {
@@ -108,12 +103,22 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
+                this.$store.dispatch('showToast', {
+                    text: 'Cập nhật thông tin thành công',
+                    visible: true
+                })
             })
-        }  
+            .catch((error) => {
+                this.error = error.response.data
+            })
+        },  
     },
     created() {
-        this.getProfile();
+        this.email = this.employeeData.email
+        this.last_name = this.employeeData.last_name
+        this.first_name = this.employeeData.first_name
+        this.phone_number = this.employeeData.phone_number
+        this.birth_date = this.employeeData.birth_date
     }
 }
 </script>

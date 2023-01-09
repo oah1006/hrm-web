@@ -7,7 +7,7 @@
             <div class="my-4 bg-white px-4 py-3 rounded-md">
                 <div class="flex items-center">
                     <p class="text-2xl font-medium">Các loại lý do xin nghỉ phép</p>
-                    <router-link :to="{name: 'storeLeaveType'}" class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium" v-if="employee.role == 'admin'">
+                    <router-link :to="{name: 'storeLeaveType'}" class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium" v-if="employeeData.role == 'admin'">
                         Tạo mới
                     </router-link>
                 </div>
@@ -23,7 +23,7 @@
                 <thead class="uppercase rounded-lg">
                 <tr class="text-xs text-zinc-400 font-bold border-b">
                     <td class="lg:px-4 py-3">Tên loại lý do xin nghỉ phép</td>
-                    <td class="" v-if="employee.role == 'admin'"></td>
+                    <td class="" v-if="employeeData.role == 'admin'"></td>
                 </tr>
                 </thead>
 
@@ -33,7 +33,7 @@
                             <td class="px-4 py-3 text-sky-500 font-medium">
                                 {{ leaveType.type_name  }}
                             </td>
-                            <td class="lg:pl-4 py-3 flex gap-3 items-center justify-end mr-4" v-if="employee.role == 'admin'">
+                            <td class="lg:pl-4 py-3 flex gap-3 items-center justify-end mr-4" v-if="employeeData.role == 'admin'">
                                 <router-link v-if="leaveType.id"
                                 :to="{
                                     name: 'detailLeaveType',
@@ -91,6 +91,7 @@ import LoadingTable from "../loading-table/LoadingTable.vue"
 import axios from "axios"
 
 export default {
+    inject: ['employee'],
     components: {
         Navbar,
         NavigationBar,
@@ -109,24 +110,10 @@ export default {
             search: '',
             debounce: null,
             user: this.$cookies.get('user'),
-            employee: {},
+            employeeData: this.employee,
         }
     },
     methods: {
-        getProfile() {
-            const token = this.$cookies.get('token');
-
-            axios
-            .get('http://127.0.0.1:8000/api/admin/profile', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-            .then((response) => {
-                this.employee = response.data;
-            })
-        },
-
         getLeaveTypes() {
             const token = this.$cookies.get('token')
 
@@ -144,6 +131,8 @@ export default {
         removeLeaveType(id) {
             const token = this.$cookies.get('token')
 
+            this.isLoading = true;
+
             axios
             .delete('http://127.0.0.1:8000/api/admin/leave-types/' + id, {
                 headers: {
@@ -152,6 +141,10 @@ export default {
             })
             .then((response) => {
                 this.getLeaveTypes();
+                this.$store.dispatch('showToast', {
+                    text: 'Xóa loại lý do thành công',
+                    visible: true
+                })
             })
         },
         searchLeaveTypes() {
@@ -196,7 +189,6 @@ export default {
     },
     created() {
         this.getLeaveTypes();
-        this.getProfile();
     },
     watch: {
         search() {

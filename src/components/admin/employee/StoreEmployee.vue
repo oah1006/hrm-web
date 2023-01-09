@@ -11,42 +11,42 @@
                             <p class="w-1/12">Email</p>
                             <input type="text" name="email" v-model="email" placeholder="Email" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                         </div>
-                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.email[0] }}</p>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.email">{{ error?.errors?.email[0] }}</p>
                     </div>
                     <div class="border-b boder-gray-100 border-solid py-6">
                         <div class="flex items-center gap-4 px-10">
                             <p class="w-1/12">Mật khẩu</p>
                             <input type="password" name="password" v-model="password" placeholder="Mật khẩu" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                         </div>
-                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.password[0] }}</p>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.password">{{ error?.errors?.password[0] }}</p>
                     </div>  
                     <div class="border-b boder-gray-100 border-solid py-6">
                         <div class="flex items-center gap-4 px-10">
                             <p class="w-1/12">Họ</p>
                             <input type="text" name="last_name" v-model="last_name" placeholder="Họ" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                         </div>
-                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.last_name[0] }}</p>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.last_name">{{ error?.errors?.last_name[0] }}</p>
                     </div>
                     <div class="border-b boder-gray-100 border-solid py-6">
                         <div class="flex items-center gap-4 px-10">
-                            <p class="w-1/12">Tên:</p>
+                            <p class="w-1/12">Tên</p>
                             <input type="text" name="first_name" v-model="first_name" placeholder="Tên" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                         </div>
-                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.first_name[0] }}</p>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.first_name">{{ error?.errors?.first_name[0] }}</p>
                     </div>
                     <div class="border-b boder-gray-100 border-solid py-6">
                         <div class="flex items-center gap-4 px-10">
-                            <p class="w-1/12">Số điện thoại:</p>
+                            <p class="w-1/12">Số điện thoại</p>
                             <input type="text" name="phone_number" v-model="phone_number" placeholder="Số điện thoại" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                         </div>
-                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.phone_number[0] }}</p>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.phone_number">{{ error?.errors?.phone_number[0] }}</p>
                     </div>
                     <div class="border-b boder-gray-100 border-solid py-6">
                         <div class="flex items-center gap-4 px-10">
                             <p class="w-1/12">Ngày sinh:</p>
                             <input type="date" name="birth_date" v-model="birth_date" placeholder="Ngày sinh" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                         </div>
-                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error">{{ error.errors.birth_date[0] }}</p>
+                        <p class="text-red-500 mt-3 px-36 pb-3" v-if="error?.errors?.birth_date">{{ error?.errors?.birth_date[0] }}</p>
                     </div>
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                         <p class="w-1/12">Giới tính</p>
@@ -125,7 +125,7 @@ export default {
             birth_date: '',
             role: 'admin',
             status: 'active',
-            error: '',
+            error: {},
             isLoading: ref(false),
             department_id: '1',
             user: this.$cookies.get('user'),
@@ -137,7 +137,7 @@ export default {
             const token = this.$cookies.get('token')
 
             this.isLoading = true;
-            console.log(this.isLoading)
+
 
             const data = {
                 email: this.email,
@@ -160,9 +160,12 @@ export default {
             })
             .then((response) => {
                 this.$router.push('/admin/employee')
+                this.$store.dispatch('showToast', {
+                    text: 'Tạo nhân viên thành công',
+                    visible: true
+                })
             })
             .catch((error) => {
-                console.log(error.response.data.errors)
                 this.error = error.response.data
             })
         }

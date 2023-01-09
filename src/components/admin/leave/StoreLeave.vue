@@ -9,30 +9,43 @@
                     <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
                         <p class="w-1/4">Tên nhân viên</p>
                         <select :disabled="true" name="employee_id" v-model="employee_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
-                            <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-                                {{ employee.first_name}}
+                            <option :value="employeeData?.id">
+                                {{ employeeData?.first_name}}
                             </option>   
                         </select>
                     </div>  
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Tên loại lý do xin nghỉ phép</p>
-                        <select name="leave_type_id" v-model="leave_type_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
-                            <option v-for="leaveType in leaveTypes" :key="leaveType.id" :value="leaveType.id">
-                                {{ leaveType.type_name }}
-                            </option>   
-                        </select>
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Tên loại lý do xin nghỉ phép</p>
+                            <select name="leave_type_id" v-model="leave_type_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                                <option value="" disabled selected hidden>Chọn loại lý do</option>
+                                <option v-for="leaveType in leaveTypes" :key="leaveType.id" :value="leaveType.id">
+                                    {{ leaveType.type_name }}
+                                </option>   
+                            </select>
+                        </div>
+                        <p class="text-red-500 mt-3 px-[275px] pb-3" v-if="error?.errors?.leave_type_id">{{ error?.errors?.leave_type_id[0] }}</p>
                     </div> 
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Lý do xin nghỉ phép</p>
-                        <input type="text" name="reason" v-model="reason" placeholder="Lý do..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Lý do xin nghỉ phép</p>
+                            <input type="text" name="reason" v-model="reason" placeholder="Lý do..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-[275px] pb-3" v-if="error?.errors?.reason">{{ error?.errors?.reason[0] }}</p>
                     </div>  
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Ngày bắt đầu nghỉ</p>
-                        <input type="date" name="start_day" v-model="start_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Ngày bắt đầu nghỉ</p>
+                            <input type="date" name="start_day" v-model="start_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-[275px] pb-3" v-if="error?.errors?.start_day">{{ error?.errors?.start_day[0] }}</p>
                     </div> 
-                    <div class="flex items-center gap-4 border-b boder-gray-100 border-solid px-10 py-6">
-                        <p class="w-1/4">Ngày kết thúc nghỉ</p>
-                        <input type="date" name="end_day" v-model="end_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    <div class="border-b boder-gray-100 border-solid py-6">
+                        <div class="flex items-center gap-4 px-10">
+                            <p class="w-1/4">Ngày kết thúc nghỉ</p>
+                            <input type="date" name="end_day" v-model="end_day" placeholder="Tên phòng ban..." class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                        </div>
+                        <p class="text-red-500 mt-3 px-[275px] pb-3" v-if="error?.errors?.end_day">{{ error?.errors?.end_day[0] }}</p>
                     </div> 
                 </div>
                 <div class="flex mt-4">
@@ -66,6 +79,7 @@ import axios from "axios"
 import { ref } from 'vue'
 
 export default {
+    inject: ['employee'],
     components: {
         Navbar,
         NavigationBar
@@ -78,7 +92,9 @@ export default {
             start_day: '',
             end_day: '',
             leaveTypes: {},
+            employeeData: this.employee,
             employees: {},
+            error: {},
             user: this.$cookies.get('user')
         }
     },
@@ -103,19 +119,13 @@ export default {
             })
             .then((response) => {
                 this.$router.push('/admin/leave')
+                this.$store.dispatch('showToast', {
+                    text: 'Tạo loại lý do thành công',
+                    visible: true
+                })
             })
-        },
-        getProfile() {
-            const token = this.$cookies.get('token');
-
-            axios
-            .get('http://127.0.0.1:8000/api/admin/profile', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-            .then((response) => {
-                this.employee_id = response.data.id
+            .catch((error) => {
+                this.error = error.response.data
             })
         },
     }, 
@@ -129,7 +139,6 @@ export default {
             }
         })
         .then((response) => {
-            console.log(response.data)
             this.leaveTypes = response.data.data 
         })
 
@@ -143,7 +152,11 @@ export default {
             this.employees = response.data.data 
         })
 
-        this.getProfile();
+
+        this.employee_id = this.employeeData.id
+    },
+    mounted() {
+        console.log(this.employeeData.first_name)
     }
 }
 </script>

@@ -61,20 +61,20 @@
                     <template v-if="!isLoading">
                         <tr v-for="leave in leaves" :key="leave.id" class="text-gray-600 text-sm">
                             <td class="px-4 py-3">
-                                <router-link v-if="leave.employee.id" 
+                                <router-link v-if="leave.employee?.id" 
                                 :to="{ 
                                     name: 'detailEmployee', 
-                                    params: { id: leave.employee.id } 
+                                    params: { id: leave.employee?.id } 
                                 }" 
                                 class="text-sky-500 font-medium">
-                                    {{ leave.employee.first_name  }}
+                                    {{ leave.employee?.first_name  }}
                                 </router-link>
                             </td>
                             <td class="px-4 py-3">
-                                {{ leave.employee.email  }}
+                                {{ leave.employee?.email  }}
                             </td>
                             <td class="px-4 py-3">
-                                {{ leave.leave_type.type_name  }}
+                                {{ leave.leave_type?.type_name  }}
                             </td>
                             <td class="px-4 py-3">
                                 {{ leave.reason }}
@@ -105,7 +105,7 @@
                                     <p class="text-red-500 font-medium">{{ leave.status }}</p>
                                 </div>
                             </td>
-                            <td class="pl-4 py-3">
+                            <td class="px-4 py-3">
                                 <div class="flex gap-3 items-center justify-center">
                                     <router-link 
                                         :to="{
@@ -164,6 +164,7 @@ import axios from "axios"
 
 
 export default {
+    inject: ['employee'],
     components: {
         Navbar,
         NavigationBar,
@@ -184,6 +185,7 @@ export default {
             debounce: null,
             leaves: {},
             leaveTypes: {},
+            employeeData: this.employee,
             user: this.$cookies.get('user')
         }
     },
@@ -199,10 +201,12 @@ export default {
             })
             .then((response) => {
                 this.leaves = response.data.data
+                this.isLoading = false
             })
         },
         removeLeave(id) {
             const token = this.$cookies.get('token')
+            this.isLoading = true;
 
             axios
             .delete('http://127.0.0.1:8000/api/admin/leaves/' + id, {
@@ -212,6 +216,10 @@ export default {
             })
             .then((response) => {
                 this.getLeaves()
+                this.$store.dispatch('showToast', {
+                    text: 'Xóa đơn xin nghỉ phép thành công',
+                    visible: true
+                })
             })
         },
         getLeaveTypes() {
@@ -251,7 +259,7 @@ export default {
                         this.last_page = response.data.last_page
                         this.leaves = response.data.data
                     })
-            })
+            }, 300)
         },
 
         showModal(id) {
@@ -263,7 +271,7 @@ export default {
             this.filterLeaveType = '';
             this.filterStatus = '';
             this.search = '';
-            this.getEmployees();
+            this.getLeaves();
         },
 
         nextPage() {

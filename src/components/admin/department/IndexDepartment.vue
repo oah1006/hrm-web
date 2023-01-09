@@ -7,7 +7,7 @@
       <div class="my-4 bg-white px-4 py-3 rounded-md">
         <div class="flex items-center align-center">
           <p class="text-2xl font-medium">Phòng ban</p>
-          <router-link v-if="employee.role == 'admin'"
+          <router-link v-if="employeeData.role == 'admin'"
             :to="{ name: 'storeDepartment' }"
             class="ml-auto px-4 py-2 bg-sky-500 rounded-md text-white font-medium"
             >Tạo mới</router-link>
@@ -26,7 +26,7 @@
           <tr class="text-xs text-zinc-400 font-bold border-b">
             <td class="lg:px-4 py-3 w-1/3">Tên phòng ban</td>
             <td class="lg:px-4 py-3 w-2/3">Mô tả</td>
-            <td class="w-1/3" v-if="employee.role == 'admin'"></td>
+            <td class="w-1/3" v-if="employeeData.role == 'admin'"></td>
           </tr>
         </thead>
 
@@ -39,7 +39,7 @@
               <td class="px-4 py-3 w-2/3">
                   <p class="line-clamp-2">{{ department.description }}</p>
               </td>
-              <td class="lg:pl-4 py-3 w-1/3" v-if="employee.role == 'admin'">
+              <td class="lg:pl-4 py-3 w-1/3" v-if="employeeData.role == 'admin'">
                 <div class="flex mr-4">
                   <div class="flex items-center ml-auto gap-3">
                     <router-link
@@ -130,6 +130,7 @@ import LoadingTable from "../loading-table/LoadingTable.vue"
 import axios from "axios";
 
 export default {
+  inject: ['employee'],
   components: {
     Navbar,
     NavigationBar,
@@ -154,25 +155,10 @@ export default {
       page: 1,
       last_page: '',
       isLoading: true,
-      employee: {}
+      employeeData: this.employee
     };
   },
   methods: {
-    getProfile() {
-        const token = this.$cookies.get('token');
-
-        axios
-        .get('http://127.0.0.1:8000/api/admin/profile', {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        })
-        .then((response) => {
-            console.log(response.data)
-            this.employee = response.data;
-        })
-    },
-
     getDepartments() {
       const token = this.$cookies.get("token");
 
@@ -190,6 +176,8 @@ export default {
     removeDepartment(id) {
       const token = this.$cookies.get('token');
 
+      this.isLoading = true;
+
       axios
         .delete("http://127.0.0.1:8000/api/admin/departments/" + id, {
           headers: {
@@ -198,6 +186,10 @@ export default {
         })
         .then(response => {
           this.getDepartments();
+          this.$store.dispatch('showToast', {
+              text: 'Xóa phòng ban thành công',
+              visible: true
+          })
         })
     },
     searchDepartments() {
@@ -246,7 +238,6 @@ export default {
   },
   created() {
     this.getDepartments();
-    this.getProfile();
   },
   watch: {
     search() {
