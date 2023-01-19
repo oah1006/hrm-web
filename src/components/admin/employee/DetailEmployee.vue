@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user" />
+    <Navbar  />
     <div class="flex">
         <NavigationBar />
         <div class="grow lg:px-10 lg:py-6 bg-sky-50" v-if="employee.id">
@@ -94,7 +94,6 @@ export default {
     },
     data() {
         return {
-            user: this.$cookies.get('user'),
             employee: {},
         }
     },

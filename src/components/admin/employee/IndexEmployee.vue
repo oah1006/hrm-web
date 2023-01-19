@@ -1,5 +1,5 @@
 <template>
-  <Navbar :user="user" />
+  <Navbar  />
   <div class="flex h-screen">
     <NavigationBar />
     <div class="bg-sky-50 grow px-10 py-6">

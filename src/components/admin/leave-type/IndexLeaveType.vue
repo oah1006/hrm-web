@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user" />
+    <Navbar />
     <div class="flex h-screen">
         <NavigationBar />
         <div class="bg-sky-50 grow px-10 py-6">
@@ -87,11 +87,11 @@ import NavigationBar from "../../NavigationBar/NavigationBar.vue"
 import ModalDelete from "../modal/ModalDelete.vue"
 import Pagination from "../../pagination/Pagination.vue"
 import LoadingTable from "../loading-table/LoadingTable.vue"
+import { mapState } from "vuex"
 
 import axios from "axios"
 
 export default {
-    inject: ['employee'],
     components: {
         Navbar,
         NavigationBar,
@@ -109,8 +109,7 @@ export default {
             leaveTypes: {},
             search: '',
             debounce: null,
-            user: this.$cookies.get('user'),
-            employeeData: this.employee,
+            user: '',
         }
     },
     methods: {
@@ -200,6 +199,9 @@ export default {
             this.searchLeaveTypes()
             this.isLoading = true
         }
+    },
+    computed: {
+        ...mapState(['employeeData'])
     }
 }
 </script>

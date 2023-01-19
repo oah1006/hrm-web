@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user"/>
+    <Navbar />
     <div class="flex">
         <NavigationBar />
         <div class="grow lg:px-10 lg:py-6" v-if="leaveType.id">
@@ -54,7 +54,6 @@ export default {
     data() {
         return {
             leaveType: {},
-            user: this.$cookies.get('user'),
         }
     },
     created() {

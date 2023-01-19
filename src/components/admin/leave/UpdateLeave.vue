@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user" />
+    <Navbar  />
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 py-6 h-screen">
@@ -10,7 +10,7 @@
                         <p class="w-1/4">Tên nhân viên</p>
                         <select :disabled="true" name="employee_id" v-model="employee_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-                                {{ employee.first_name}}
+                                {{ employeeData.first_name}}
                             </option>   
                         </select>
                     </div>  
@@ -100,7 +100,6 @@ export default {
             leaves: {},
             leave: {},
             error: {},
-            user: this.$cookies.get('user')
         }
     },
     methods: {

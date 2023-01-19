@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user" />
+    <Navbar  />
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 lg:py-6">
@@ -128,7 +128,6 @@ export default {
             error: {},
             isLoading: ref(false),
             department_id: '1',
-            user: this.$cookies.get('user'),
             departments: []
         }
     },

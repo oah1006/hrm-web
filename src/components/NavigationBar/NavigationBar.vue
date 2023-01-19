@@ -43,13 +43,14 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from "vuex"
 
 export default {
-    inject: ['employee'],
-    data() {
-        return {
-            employeeData: this.employee
-        }
+    created() {
+        this.$store.dispatch("getProfile")
+    },
+    computed: {
+        ...mapState(['employeeData'])
     }
 }
 </script>

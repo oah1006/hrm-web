@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user" />
+    <Navbar  />
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 lg:py-6 h-screen">
@@ -50,7 +50,6 @@ export default {
     data() {
         return {
             type_name: '',
-            user: this.$cookies.get('user'),
             error: {}
         }
     },

@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user"/>
+    <Navbar />
     <div class="flex h-screen">
         <NavigationBar />
         <div class="bg-sky-50 grow px-10 py-6">
@@ -65,22 +65,20 @@
 import Navbar from "../../navbar/Navbar.vue";
 import NavigationBar from "../../NavigationBar/NavigationBar.vue";
 import axios from "axios";
+import { mapState } from 'vuex'
 
 export default {
-    inject: ['employee'],
     components: {
         Navbar, 
         NavigationBar
     },
     data() {
         return {
-            user: this.$cookies.get('user'),
             email: '',
             first_name: '',
             last_name: '',
             phone_number: '',
             birth_date: '',
-            employeeData: this.employee,
             error: {}
         }
     },
@@ -119,6 +117,9 @@ export default {
         this.first_name = this.employeeData.first_name
         this.phone_number = this.employeeData.phone_number
         this.birth_date = this.employeeData.birth_date
+    },
+    computed: {
+        ...mapState(['employeeData'])
     }
 }
 </script>

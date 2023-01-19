@@ -1,5 +1,5 @@
 <template>
-    <Navbar :user="user"/>
+    <Navbar />
     <div class="flex">
         <NavigationBar />
         <div class="bg-sky-50 grow lg:px-10 lg:py-6 h-screen">
@@ -10,8 +10,8 @@
                         <p class="w-1/4">Tên nhân viên</p>
                         <select :disabled="true" name="employee_id" v-model="employee_id" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                             <option :value="employeeData?.id">
-                                {{ employeeData?.first_name}}
-                            </option>   
+                                {{ employeeData?.first_name  }}
+                            </option>  
                         </select>
                     </div>  
                     <div class="border-b boder-gray-100 border-solid py-6">
@@ -74,12 +74,12 @@
 <script>
 import Navbar from "../../navbar/Navbar.vue"
 import NavigationBar from "../../NavigationBar/NavigationBar.vue"
+import { mapState } from 'vuex'
 
 import axios from "axios"
-import { ref } from 'vue'
+
 
 export default {
-    inject: ['employee'],
     components: {
         Navbar,
         NavigationBar
@@ -92,10 +92,8 @@ export default {
             start_day: '',
             end_day: '',
             leaveTypes: {},
-            employeeData: this.employee,
             employees: {},
             error: {},
-            user: this.$cookies.get('user')
         }
     },
     methods: {
@@ -109,7 +107,6 @@ export default {
                 start_day: this.start_day,
                 end_day: this.end_day
             }
-
 
             axios
             .post('http://127.0.0.1:8000/api/admin/leaves', data, {
@@ -151,13 +148,20 @@ export default {
         .then((response) => {
             this.employees = response.data.data 
         })
-
-
-        this.employee_id = this.employeeData.id
     },
-    mounted() {
-        console.log(this.employeeData.first_name)
+    computed: {
+        employee_id: {
+            get() {
+                return this.$store.state.employeeData?.id
+            },
+            set(value) {
+                this.$store.commit('setEmployeeDataId', value)
+            }
+        },
+        employeeData() {
+            return this.$store.state.employeeData
+        }
     }
-}
+ }
 </script>
 
